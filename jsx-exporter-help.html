@@ -11,39 +11,13 @@
         <div class="layout">
             <nav class="toc">
                 <div class="brand">UI Widget Builder</div>
-                <div class="brand-sub">PSD Exporter — Field Guide</div>
-                <a class="section-link" href="#workflow">Pipeline Overview</a>
-                <a href="#workflow-steps">How an export flows</a>
-                <a href="#current-jsx">Current JSX behavior</a>
-                <a class="section-link" href="#core-widgets">Core Widget Prefixes</a>
-                <a href="#core-widgets">Interactive controls</a>
-                <a class="section-link" href="#containers">Containers &amp; Layout</a>
-                <a href="#containers">Folders that become layout widgets</a>
-                <a class="section-link" href="#parts">Compound Parts</a>
-                <a href="#parts">Style layers inside a widget</a>
-                <a class="section-link" href="#states">Button States &amp; Actions</a>
-                <a href="#states">Normal / Hover / Pressed / Disabled</a>
-                <a href="#actions">Close, Exit, Toggle, Switch Tab</a>
-                <a class="section-link" href="#syntax">Special Naming Syntax</a>
-                <a href="#syntax">Sizes, grids, scroll viewports</a>
-                <a href="#rotation-syntax">Button rotation override</a>
-                <a href="#sharing">Shared textures</a>
-                <a class="section-link" href="#options">Export Options Panel</a>
-                <a href="#export-folder">Export folder controls</a>
-                <a href="#options-table">What each checkbox does</a>
-                <a class="section-link" href="#tools">Toolbar</a>
-                <a href="#tool-prep">Prep Layers</a>
-                <a href="#tool-fill">Fill States</a>
-                <a href="#tool-export">Export PSD</a>
-                <a class="section-link" href="#resources">Links &amp; Resources</a>
-                <a href="#resources">Tutorials, marketplace, LinkedIn</a>
-                <a class="section-link" href="#cautions">Cautions &amp; Notices</a>
-                <a href="#cautions">Read before a big export</a>
+                <div class="brand-sub">PSD Exporter — Field Guide</div><a class="section-link" href="#workflow">Pipeline Overview</a><a href="#workflow-steps">How an export flows</a><a href="#current-jsx">Current JSX behavior</a><a class="section-link" href="#core-widgets">Core Widget Prefixes</a><a href="#core-widgets">Interactive controls</a><a class="section-link" href="#containers">Containers &amp; Layout</a><a href="#containers">Folders that become layout widgets</a><a class="section-link" href="#parts">Compound Parts</a><a href="#parts">Style layers inside a widget</a><a class="section-link" href="#states">Button States &amp; Actions</a><a href="#states">Normal / Hover / Pressed / Disabled</a><a href="#actions">Close, Exit, Toggle, Switch Tab</a><a class="section-link" href="#syntax">Special Naming Syntax</a><a href="#syntax">Sizes, grids, scroll viewports</a><a href="#rotation-syntax">Button rotation override</a><a href="#sharing">Shared textures</a><a class="section-link" href="#options">Export Options Panel</a><a href="#export-folder">Export folder controls</a><a href="#options-table">What each checkbox does</a><a class="section-link" href="#tools">Toolbar</a><a href="#tool-prep">Prep Layers</a><a href="#tool-fill">Fill States</a><a href="#tool-export">Export PSD</a><a class="section-link" href="#resources">Links &amp; Resources</a><a href="#resources">Tutorials, marketplace, LinkedIn</a><a class="section-link" href="#cautions">Cautions &amp; Notices</a><a href="#cautions">Read before a big export</a>
             </nav>
             <main>
                 <!-- ════════════════ HERO ════════════════ -->
                 <header class="hero">
-                    <div class="eyebrow"><span class="dot"></span> PSD → JSON → UMG
+                    <div class="eyebrow">
+                        <span class="dot"></span> PSD → JSON → UMG
                     </div>
                     <h1>UI Widget Builder<br><span class="accent">PSD Exporter</span> — Field Guide</h1>
                     <p class="lead">
@@ -51,11 +25,7 @@
         layer-name prefix produces inside Unreal, and the toolbar utilities that help you
         prepare a PSD before exporting. It has been refreshed against the actual
         UI_Widget_Builder__PhotoshopExporter.jsx behavior. </p>
-                    <div class="meta-row">
-                        <span><b>Companion to:</b> UI Widget Builder — PSD Exporter.jsx</span>
-                        <span><b>Output:</b> layout.json + Textures/</span>
-                        <span><b>Exporter schema:</b> 2.1</span>
-                        <span><b>Author:</b> Ali Shantia</span>
+                    <div class="meta-row"><span><b>Companion to:</b> UI Widget Builder — PSD Exporter.jsx</span><span><b>Output:</b> layout.json + Textures/</span><span><b>Exporter schema:</b> 2.1</span><span><b>Author:</b> Ali Shantia</span>
                     </div>
                 </header>
                 <!-- ════════════════ WORKFLOW ════════════════ -->
@@ -68,33 +38,45 @@
         describing the widget tree, positions, styling and interactions. The Unreal importer
         reads that JSON and builds real UMG Widget Blueprints from it. </p>
                     <div class="shot">
-                        <img src="external/samples/Exporter/Export_Worlflow.jpg" width="814">
+                        <img src="external/samples/Exporter/PSDExport.png" width="814">
                         <div class="shot-label">Diagram placeholder — PSD → layout.json + Textures/ → UE5 Widget Blueprint</div>
                     </div>
                     <h3 class="sub" id="workflow-steps">Recommended order of operations</h3>
                     <ol class="checklist" style="display:grid; gap:10px; list-style:none; padding:0;">
-                        <li><span class="num">1</span>
-                            <div><b>Name your layers and groups</b> using the prefixes in this guide. Group folders become containers; art layers and text layers become widgets or images.
+                        <li>
+                            <span class="num">1</span>
+                            <div>
+                                <b>Name your layers and groups</b> using the prefixes in this guide. Group folders become containers; art layers and text layers become widgets or images.
                             </div>
                         </li>
-                        <li><span class="num">2</span>
-                            <div><b>Run “Prep Layers”</b> to catch any text or image layers you forgot to prefix.
+                        <li>
+                            <span class="num">2</span>
+                            <div>
+                                <b>Run “Prep Layers”</b> to catch any text or image layers you forgot to prefix.
                             </div>
                         </li>
-                        <li><span class="num">3</span>
-                            <div><b>Run “Fill States”</b> on any <span class="pfx">BTN_</span> groups that are missing Hover/Pressed art.
+                        <li>
+                            <span class="num">3</span>
+                            <div>
+                                <b>Run “Fill States”</b> on any <span class="pfx">BTN_</span> groups that are missing Hover/Pressed art.
                             </div>
                         </li>
-                        <li><span class="num">4</span>
-                            <div><b>Choose an export folder</b>, set your Export Options, and click <b>Export PSD</b>.
+                        <li>
+                            <span class="num">4</span>
+                            <div>
+                                <b>Choose an export folder</b>, set your Export Options, and click <b>Export PSD</b>.
                             </div>
                         </li>
-                        <li><span class="num">5</span>
-                            <div><b>Check the export summary and warnings</b>. The completion alert shows counts and the first warning; the full warnings array is written into <code class="syntax" style="background:var(--field)">layout.json</code>.
+                        <li>
+                            <span class="num">5</span>
+                            <div>
+                                <b>Check the export summary and warnings</b>. The completion alert shows counts and the first warning; the full warnings array is written into <code class="syntax" style="background:var(--field)">layout.json</code>.
                             </div>
                         </li>
-                        <li><span class="num">6</span>
-                            <div><b>Import <code class="syntax" style="background:var(--field)">layout.json</code></b> with the UI Widget Builder importer inside Unreal.
+                        <li>
+                            <span class="num">6</span>
+                            <div>
+                                <b>Import <code class="syntax" style="background:var(--field)">layout.json</code></b> with the UI Widget Builder importer inside Unreal.
                             </div>
                         </li>
                     </ol>
@@ -387,8 +369,7 @@
                     </table>
                     <div class="callout notice">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice</b>
+                        <div class="body"><b class="label">Notice</b>
                             <p>A flat <span class="pfx">BTN_</span> layer placed <i>inside</i> another <span class="pfx">BTN_</span> group is treated purely as Photoshop backplate art — it's never exported as a nested Button.</p>
                         </div>
                     </div>
@@ -570,8 +551,7 @@
                     </table>
                     <div class="callout caution" id="sharing-caution">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Caution — texture-sharing suffix is automatic</b>
+                        <div class="body"><b class="label">Caution — texture-sharing suffix is automatic</b>
                             <p>
             Texture sharing is global for the whole export. Two unrelated layers named <code class="syntax">IMG_HealthBar_A</code>
             and <code class="syntax">IMG_ManaBar_A</code> both resolve to sharing key <code class="syntax">A</code>, so only
@@ -655,8 +635,7 @@
                     </table>
                     <div class="callout caution">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Caution — destructive option</b>
+                        <div class="body"><b class="label">Caution — destructive option</b>
                             <p>
             “Delete existing Textures folder and layout.json before export” asks for confirmation, then permanently deletes every file in <code class="syntax">Textures/</code> plus <code class="syntax">layout.json</code> before re-exporting.
             There is no undo after confirmation. Use this only when you intend a fully clean export. </p>
@@ -664,8 +643,7 @@
                     </div>
                     <div class="callout notice">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — existing output with no skip/delete option</b>
+                        <div class="body"><b class="label">Notice — existing output with no skip/delete option</b>
                             <p>
             If <code class="syntax">layout.json</code> or <code class="syntax">Textures/</code> already exists and neither “skip existing” nor “delete existing” is enabled, the exporter asks before proceeding. In that mode it overwrites textures it re-exports, but keeps existing texture files that are not touched by the current run. </p>
                         </div>
@@ -746,10 +724,7 @@
                     <p class="section-intro">
         Use these links for tutorials, marketplace updates, and the author's professional profile.
         They open in a new browser tab and are separate from the local exporter files. </p>
-                    <div class="resource-grid">
-                        <a class="resource-card" href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">▶</div> <h3>YouTube tutorials</h3> <p>Video tutorials and playlists for Unreal Engine workflows, tools, and related production examples.</p> <div class="resource-url">youtube.com/@sepinoodstudio</div> </a>
-                        <a class="resource-card" href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">◆</div> <h3>Fab marketplace</h3> <p>Ali Shantia / Sepinood marketplace page for published Unreal Engine assets, tools, and plugins.</p> <div class="resource-url">fab.com/sellers/Ali Shantia(Sepinood)</div> </a>
-                        <a class="resource-card" href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">in</div> <h3>LinkedIn profile</h3> <p>Personal professional page for background, updates, and direct profile reference.</p> <div class="resource-url">linkedin.com/in/ali-shantia</div> </a>
+                    <div class="resource-grid"><a class="resource-card" href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">▶</div> <h3>YouTube tutorials</h3> <p>Video tutorials and playlists for Unreal Engine workflows, tools, and related production examples.</p> <div class="resource-url">youtube.com/@sepinoodstudio</div> </a><a class="resource-card" href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">◆</div> <h3>Fab marketplace</h3> <p>Ali Shantia / Sepinood marketplace page for published Unreal Engine assets, tools, and plugins.</p> <div class="resource-url">fab.com/sellers/Ali Shantia(Sepinood)</div> </a><a class="resource-card" href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer"> <div class="resource-icon">in</div> <h3>LinkedIn profile</h3> <p>Personal professional page for background, updates, and direct profile reference.</p> <div class="resource-url">linkedin.com/in/ali-shantia</div> </a>
                     </div>
                 </section>
                 <!-- ════════════════ CAUTIONS & NOTICES ════════════════ -->
@@ -761,8 +736,7 @@
         before exporting a complex screen for the first time. </p>
                     <div class="callout notice" id="can-note">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — CAN_ screens are auto-wrapped</b>
+                        <div class="body"><b class="label">Notice — CAN_ screens are auto-wrapped</b>
                             <p>
             Any <span class="pfx">CAN_</span> group is exported with <code class="syntax">wrapper.safeZone = true</code>
             and <code class="syntax">wrapper.scaleBox = true</code> (ScaleToFit, both directions). The importer wraps
@@ -771,8 +745,7 @@
                     </div>
                     <div class="callout notice" id="switcher-note">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — WidgetSwitcher detection is not limited to WSW_</b>
+                        <div class="body"><b class="label">Notice — WidgetSwitcher detection is not limited to WSW_</b>
                             <p>
             A plain (unprefixed) group/panel folder can still be treated as a WidgetSwitcher's page container if a <span class="pfx">BTN_</span> elsewhere targets a same-named child inside it. You don't have to rename
             every tab container to <span class="pfx">WSW_</span> — but if tab-switching isn't wiring up the way you
@@ -781,8 +754,7 @@
                     </div>
                     <div class="callout notice" id="chkg-note">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — CHKG_ needs at least two members</b>
+                        <div class="body"><b class="label">Notice — CHKG_ needs at least two members</b>
                             <p>
             A <span class="pfx">CHKG_</span> group only receives exclusive-group metadata
             (<code class="syntax">checkboxGroupItems</code>) when it contains <b>two or more</b> direct <span class="pfx">CHK_</span>/<span class="pfx">TGL_</span> children (flat layers or nested groups both
@@ -793,16 +765,14 @@
                     </div>
                     <div class="callout notice">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — button rotation lives on the parent BTN_ group</b>
+                        <div class="body"><b class="label">Notice — button rotation lives on the parent BTN_ group</b>
                             <p>
             The exporter stores rotation on the <span class="pfx">BTN_</span> group entry, not on the individual state images. Use <code class="syntax">ROT_</code> when the button is visually tilted in the pixels and Photoshop has no transform angle to read. </p>
                         </div>
                     </div>
                     <div class="callout caution">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Caution — reserved button names</b>
+                        <div class="body"><b class="label">Caution — reserved button names</b>
                             <p> <span class="pfx">BTN_Close</span> and <span class="pfx">BTN_Exit</span><span class="pfx">BTN_Quit</span> are reserved action names.
             Don't use them for ordinary navigation buttons that should toggle a panel — pick a name that matches
             the panel you want to show/hide instead. </p>
@@ -810,8 +780,7 @@
                     </div>
                     <div class="callout notice">
                         <div class="icon">!</div>
-                        <div class="body">
-                            <b class="label">Notice — performance and shape safety with “Optimize solid-color layers”</b>
+                        <div class="body"><b class="label">Notice — performance and shape safety with “Optimize solid-color layers”</b>
                             <p>
             Solid-color detection duplicates each candidate layer into a small probe document and samples several
             pixels to confirm it's a uniform fill. On documents with hundreds of image layers this adds noticeable
@@ -820,8 +789,7 @@
                     </div>
                     <div class="callout tip">
                         <div class="icon">✓</div>
-                        <div class="body">
-                            <b class="label">Tip</b>
+                        <div class="body"><b class="label">Tip</b>
                             <p>
             Run an export with <b>“Skip textures that already exist on disk”</b> enabled while you're iterating on
             layout — only changed art gets re-rendered, so re-exports after a small tweak are much faster. </p>
@@ -829,8 +797,7 @@
                     </div>
                     <div class="callout tip">
                         <div class="icon">✓</div>
-                        <div class="body">
-                            <b class="label">Tip</b>
+                        <div class="body"><b class="label">Tip</b>
                             <p>
             Always check the <b>warnings list</b> after export. Skipped layers (empty bounds, unsupported prefixes,
             text-prefixed layers that aren't actually text) show up here with the exact layer name, so you can fix
@@ -841,11 +808,7 @@
                 <footer>
                     UI Widget Builder — PSD Exporter Field Guide · Updated against UI_Widget_Builder__PhotoshopExporter.jsx
                     exporter schema 2.1 · Companion document, not a substitute for the in-app “Help / Prefixes” dialog · © 2026 Ali Shantia
-                    <div class="footer-links">
-                        <a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">⬇ Download JSX Exporter</a>
-                        <a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a>
-                        <a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a>
-                        <a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    <div class="footer-links"><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">⬇ Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
                     </div>
                 </footer>
             </main>
