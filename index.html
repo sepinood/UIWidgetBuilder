@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Overview</title>
+        <link rel="stylesheet" href="assets/style.css">
+
+        <style>
+            /* Click-to-enlarge image only. Does not change existing page colors. */
+            .shot img,
+            .zoomable-image {
+                max-width: 100%;
+                height: auto;
+                cursor: zoom-in;
+                border-radius: 8px;
+                transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+            }
+            .shot img:hover,
+            .zoomable-image:hover {
+                transform: translateY(-3px) scale(1.015);
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+                opacity: 0.96;
+            }
+            .image-lightbox {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 32px;
+                background: rgba(0, 0, 0, 0.86);
+            }
+            .image-lightbox.is-open {
+                display: flex;
+            }
+            .image-lightbox img {
+                max-width: min(96vw, 1600px);
+                max-height: 90vh;
+                width: auto;
+                height: auto;
+                cursor: zoom-out;
+            }
+            .image-lightbox .lightbox-close {
+                position: fixed;
+                top: 18px;
+                right: 22px;
+                width: 38px;
+                height: 38px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                border-radius: 999px;
+                background: rgba(0, 0, 0, 0.55);
+                color: #fff;
+                font-size: 26px;
+                line-height: 34px;
+                cursor: pointer;
+            }
+            body.lightbox-open {
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a class="active" href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Complete documentation
+                    </div>
+                    <h1>UI Widget Builder<br><span class="accent">Complete Help Site</span></h1>
+                    <p class="lead">A full user-facing help site for understanding the Photoshop exporter, the Unreal importer, naming rules, generated assets, presets, logic, and troubleshooting.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Start here</div>
+                    <h2>What this plugin does</h2>
+                    <p class="section-intro">
+    UI Widget Builder is an Unreal Engine editor tool that converts a structured Photoshop UI design into real UMG Widget Blueprints.
+    The normal pipeline is: design in PSD, export <code>layout.json</code> and <code>Textures/</code> with the JSX exporter, then import the JSON inside Unreal. </p>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Engine support</b>
+                            <p>UI Widget Builder supports Unreal Engine <b>5.6</b>, <b>5.7</b>, and <b>5.8</b>. The animated switcher option requires the Unreal <b>CommonUI</b> plugin and is intended for UE 5.7 / UE 5.8; UE 5.6 uses normal WidgetSwitcher behavior.</p>
+                        </div>
+                    </div>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/Export_Worlflow.jpg" width="814">
+                        <div class="shot-label">Diagram placeholder — PSD layer tree → layout.json + Textures/ → Unreal Widget Blueprint</div>
+                    </div>
+                    <div class="grid three"><a class="card" href="quick-start.html"><h3>1. Quick Start</h3><p>Minimum steps to export and import your first screen.</p><div class="mini">PSD → Export PSD → Import JSON</div></a><a class="card" href="installation.html"><h3>2. Installation</h3><p>Supported Unreal versions, plugin setup, CommonUI requirement, and saved preset path setup.</p><div class="mini">UE 5.6 · UE 5.7 · UE 5.8</div></a><a class="card" href="layer-naming.html"><h3>3. Naming Rules</h3><p>Prefixes for buttons, text, images, containers, sliders, checkboxes, and special parts.</p><div class="mini">BTN_ TXT_ IMG_ CAN_ SCB_</div></a><a class="card" href="unreal-importer.html"><h3>4. Unreal Importer</h3><p>How to use the wizard, output path, generated assets, presets, and delete-before-import.</p><div class="mini">Step 1 → Step 2 → Step 3</div></a>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Mental model</div>
+                    <h2>The important idea</h2>
+                    <p class="section-intro">
+    The plugin does not guess your UI. It reads your layer names. A good PSD naming convention produces clean widgets, clean hierarchy, and usable generated Blueprint logic. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Photoshop concept</th>
+                            <th>Exported JSON</th>
+                            <th>Unreal result</th>
+                        </tr>
+                        <tr>
+                            <td>Group named <span class="pfx">CAN_MainMenu</span></td>
+                            <td>Root screen group</td>
+                            <td>CanvasPanel / screen root, optionally wrapped by SafeZone, ScaleBox, SizeBox</td>
+                        </tr>
+                        <tr>
+                            <td>Group named <span class="pfx">BTN_Play</span></td>
+                            <td>Button object with state textures</td>
+                            <td>UButton with Normal / Hover / Pressed / Disabled brushes</td>
+                        </tr>
+                        <tr>
+                            <td>Text layer named <span class="pfx">TXT_Title</span></td>
+                            <td>Text object with font, color, alignment</td>
+                            <td>UTextBlock</td>
+                        </tr>
+                        <tr>
+                            <td>Layer named <span class="pfx">IMG_Background</span></td>
+                            <td>Texture entry</td>
+                            <td>UImage with imported texture</td>
+                        </tr>
+                        <tr>
+                            <td>Output folder</td>
+                            <td><code>layout.json</code> + <code>Textures/</code></td>
+                            <td>Widget Blueprint assets in the selected Content path</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">What the help covers</div>
+                    <h2>Documentation map</h2>
+                    <div class="grid two">
+                        <div class="card">
+                            <h3>Designer workflow</h3>
+                            <p>How to prepare Photoshop layers, use prefix names, export textures, and avoid common naming mistakes.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Unreal workflow</h3>
+                            <p>How to import JSON, choose generated Widget Blueprint names, detach root widgets, add widgets to level, and generate Blueprint logic.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Advanced features</h3>
+                            <p>Presets, screen usage settings, Close on Key, Show After Close, play music, pause game, child UI logic, sliders, save text, click and hover SFX.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Maintenance</h3>
+                            <p>Delete existing generated items, clean re-imports, troubleshooting, known limitations, and publish-readiness notes for UE 5.6–5.8.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Recent updates</div>
+                    <h2>Recently documented features</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Area</th>
+                            <th>Documented behavior</th>
+                        </tr>
+                        <tr>
+                            <td>JSX exporter</td>
+                            <td>64×64 solid-color optimization now skips rounded corners, masks, transparent edges, and layer effects.</td>
+                        </tr>
+                        <tr>
+                            <td>Checkbox groups</td>
+                            <td><code>CHKG_</code> groups initialize the first child checked and set group text labels to remove hit test.</td>
+                        </tr>
+                        <tr>
+                            <td>Text/button logic</td>
+                            <td>Button-child text hover options and improved TextBlock wrapping behavior are documented.</td>
+                        </tr>
+                        <tr>
+                            <td>Fonts/input widgets</td>
+                            <td><a href="font-mapping.html">Font Mapping & Font Support</a> explains missing-font fallback, manual mapping, Regular/Bold matching, and ETB/ETM placeholder font handling.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <span></span>
+                        <a href="quick-start.html" style="text-align:right"><span>Next</span><b>Quick Start</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img, img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+    </body>
+</html>

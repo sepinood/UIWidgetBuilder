@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Widget Builder Help — Presets &amp; Logic</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><div class="brand">UI Widget Builder</div><div class="brand-sub">Complete Help Site</div>
+<div class="group-title">Documentation</div>
+<a href="index.html">Overview</a>
+<a href="quick-start.html">Quick Start</a>
+<a href="installation.html">Installation</a>
+<a href="psd-exporter.html">PSD Exporter</a>
+<a href="layer-naming.html">Layer Naming</a>
+<a href="unreal-importer.html">Unreal Importer</a>
+<a href="font-mapping.html">Font Mapping</a>
+<a href="resolution-orientation.html">Resolution & Orientation</a>
+<a href="auto-generated-logic.html">Auto-Generated Logic</a>
+<a href="features-restrictions.html">Features & Restrictions</a>
+<a class="active" href="presets-and-logic.html">Presets & Logic</a>
+<a href="generated-blueprints.html">Generated Blueprints</a>
+<a href="troubleshooting.html">Troubleshooting</a>
+<a href="faq.html">FAQ / Release Notes</a>
+<div class="group-title">External</div>
+<a href="external/psd-samples.html">PSD Sample Files</a>
+<a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a>
+<a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a>
+<a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a>
+<a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</nav>
+<main>
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span>Advanced behavior</div>
+  <h1>Presets & Logic<br><span class="accent">Root and Child Settings</span></h1>
+  <p class="lead">How root usage settings, child UI logic, and presets control generated behavior.</p>
+  <div class="meta-row"><span><b>Plugin:</b> UI Widget Builder</span><span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span><span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span><span><b>Author:</b> Ali Shantia</span></div>
+</header>
+
+<section>
+  <div class="section-label">Preset manager</div>
+  <h2>What presets save</h2>
+  <p class="section-intro">Presets allow users to store import behavior for a project or a specific UI style.</p>
+  <table class="ref">
+    <tr><th>Saved area</th><th>Examples</th></tr>
+    <tr><td>Root usage settings</td><td>Import, detach, visibility, modal/blur, close key, show-after-close, pause game, play music, music asset path.</td></tr>
+    <tr><td>Output settings</td><td>Main package name, export path, Add To Level selection, input mode, wrappers, delete-existing-generated-items option, and saved preset path.</td></tr>
+    <tr><td>Child UI logic</td><td>Click SFX, hover SFX, sliders, save text, clear text on focus, toggle behavior, load level buttons.</td></tr>
+    <tr><td>Text/font settings</td><td>Global font scale, text size-to-content, regular/RTL font handling.</td></tr>
+  </table>
+  <div class="callout success">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Current behavior</b><p>Loading a preset performs a silent hard reset first, then applies the preset. This avoids stale dropdown and package-name state from previous presets.</p></div>
+  </div>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Saved preset path</b><p>The preset manager can save the preset path. This helps users keep presets in a shared project folder and reuse the same preset location during future imports.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Child UI logic</div>
+  <h2>Element-level behavior options</h2>
+  <p class="section-intro">Select a child element in the wizard to add optional behavior.</p>
+  <table class="ref">
+    <tr><th>Element type</th><th>Options</th></tr>
+    <tr><td>Buttons</td><td>Add click SFX, add hover SFX, close parent screen, enable/visible another widget, load level on click, toggle SFX, and button-child text hover behavior.</td></tr>
+    <tr><td>Sliders</td><td>Master volume slider, SFX volume slider, music volume slider.</td></tr>
+    <tr><td>Checkbox / toggle</td><td>Save checked state, toggle SFX, checkbox group behavior. For <code>CHKG_</code> groups the first item starts checked and text labels under the group are set to remove hit test.</td></tr>
+    <tr><td>Editable text</td><td>Save text, clear text on focus.</td></tr>
+    <tr><td>Images</td><td>Fade in / fade out / blinking effect options where supported.</td></tr>
+    <tr><td>Progress bar / ScrollBox</td><td>Progress fill events and auto-scroll events where supported.</td></tr>
+  </table>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Button-child text hover</b><p>Text children under a button can use <b>Use flipped color on hover</b>, <b>Center scale on hover</b>, and <b>Move to Right on hover</b>. These settings are stored in presets and generated in the button hover graph. The color flip keeps hue and uses the current HSV/SV-based hover contrast logic instead of only black/white inversion.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Show / hide logic</div>
+  <h2>Root ownership and detached widgets</h2>
+  <p class="section-intro">
+    When a root is detached, the importer routes its related child screens into the detached WBP instead of leaving them inside the host WBP.
+  </p>
+  <pre><code>Loading  → host WBP
+MainMenu → detached WBP_MainMenu
+  CharacterSelect
+  Settings
+  Quit</code></pre>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Tip</b><p>Buttons like <code>BTN_Quit</code> can route related roots such as <code>GRP_Quit</code> or <code>CAN_QuitWindow</code> into the detached owner when names are close enough.</p></div>
+  </div>
+</section>
+
+<section><div class="nextprev"><a href="unreal-importer.html"><span>Previous</span><b>Unreal Importer</b></a><a href="generated-blueprints.html" style="text-align:right"><span>Next</span><b>Generated Blueprints</b></a></div></section>
+<footer class="footer">
+  UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a>
+    <a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a>
+    <a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+  </div>
+</footer>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Font Mapping & Font Support</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a class="active" href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Fonts
+                    </div>
+                    <h1>Font Mapping & Font Support<br><span class="accent">How Photoshop text becomes Unreal text</span></h1>
+                    <p class="lead">UI Widget Builder does not embed Photoshop fonts into Unreal. The exporter records font information in <code>layout.json</code>, and the Unreal importer resolves that information to a project font asset when possible.</p>
+                    <div class="meta-row">
+                        <span><b>Source:</b> Photoshop text layers</span>
+                        <span><b>Target:</b> UTextBlock / EditableTextBox / MultiLineEditableTextBox</span>
+                        <span><b>Fallback:</b> Unreal default font if no match exists</span>
+                    </div>
+                </header>
+                <div class="shot">
+                    <img src="external/samples/Exporter/FontMapping.webp" width="954">
+                    <div class="shot-label">UI Widget Builder _FontMapping</div>
+                </div>
+                <section>
+                    <div class="section-label">What gets exported</div>
+                    <h2>Font data saved in layout.json</h2>
+                    <p class="section-intro">For real Photoshop text layers, the JSX exporter writes the visual text data that the importer needs for UMG.</p>
+                    <table class="ref">
+                        <tr>
+                            <th>Exported data</th>
+                            <th>Used for</th>
+                        </tr>
+                        <tr>
+                            <td><code>fontFamily</code>, PostScript name, style name</td>
+                            <td>Finding the matching Unreal font asset or mapped font entry.</td>
+                        </tr>
+                        <tr>
+                            <td><code>fontStyle</code>, <code>fontWeight</code>, Regular/Bold tokens</td>
+                            <td>Choosing the correct style, for example Regular vs Bold.</td>
+                        </tr>
+                        <tr>
+                            <td><code>isItalic</code> / faux italic data</td>
+                            <td>Choosing italic style or applying Unreal TextBlock skew when Photoshop used faux italic.</td>
+                        </tr>
+                        <tr>
+                            <td><code>fontSize</code>, line height, tracking</td>
+                            <td>Setting Unreal font size, line-height percentage, and letter spacing.</td>
+                        </tr>
+                        <tr>
+                            <td>Text color, alignment, direction</td>
+                            <td>Setting color, justification, RTL/LTR behavior, and visual text layout.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Resolve order</div>
+                    <h2>How the Unreal importer finds a font</h2>
+                    <p class="section-intro">The importer uses a practical resolve chain so users do not have to open the Font Mapping popup just to make fonts work.</p>
+                    <ol class="checklist">
+                        <li>
+                            <span class="num">1</span>
+                            <span><b>Read the Photoshop font data</b> from the text layer: family, style, weight, italic flags, and PostScript name.</span>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <span><b>Check explicit Font Mapping</b> when the user mapped a Photoshop font to an Unreal font asset.</span>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <span><b>Auto-match project font assets</b> by trying family/style asset-name candidates such as <code>Bitter-Regular_Font</code>, <code>Bitter-Bold_Font</code>, or similar project font names.</span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><b>Prefer the correct style</b>. A Photoshop Regular layer should resolve to a Regular asset, and a Bold layer should resolve to a Bold asset when both are available.</span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><b>Use safe fallback</b>. If no Unreal font asset is found, the widget is still created and Unreal uses its default font.</span>
+                        </li>
+                    </ol>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">No popup required</b>
+                            <p>The current importer resolves font mapping without requiring the user to open the Font Mapping popup first. Opening the popup is only needed when the user wants to override or manually map fonts.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">When fonts are missing</div>
+                    <h2>What happens if the font does not exist in Unreal?</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Situation</th>
+                            <th>Result</th>
+                            <th>Fix</th>
+                        </tr>
+                        <tr>
+                            <td>Photoshop font is not imported into the Unreal project</td>
+                            <td>The TextBlock/imported input still exists, but it displays with Unreal's default font.</td>
+                            <td>Import the matching TTF/OTF/Font asset into Unreal, then reimport the UI.</td>
+                        </tr>
+                        <tr>
+                            <td>Only Regular exists, but Photoshop layer is Bold</td>
+                            <td>The importer may fall back to the closest available family/style.</td>
+                            <td>Import the Bold asset too, or manually map that Photoshop font/style.</td>
+                        </tr>
+                        <tr>
+                            <td>Wrong font family name or asset naming</td>
+                            <td>Auto-match may miss it.</td>
+                            <td>Use Font Mapping to connect the Photoshop font family to the intended Unreal font asset.</td>
+                        </tr>
+                        <tr>
+                            <td>RTL language font missing glyphs</td>
+                            <td>Text can appear as missing boxes or wrong direction/shape.</td>
+                            <td>Use a font that supports the language glyphs and test the generated Widget Blueprint.</td>
+                        </tr>
+                    </table>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Important</b>
+                            <p>The PSD/JPG/PNG export does not carry licensed font files into Unreal. Users must have the font asset available in their Unreal project, or accept the default-font fallback.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Examples</div>
+                    <h2>Common mapping examples</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Photoshop text layer</th>
+                            <th>Expected Unreal result</th>
+                        </tr>
+                        <tr>
+                            <td><code>Bitter</code> Regular</td>
+                            <td>Resolve to a Regular asset such as <code>Bitter-Regular_Font</code> when available.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Bitter</code> Bold</td>
+                            <td>Resolve to a Bold asset such as <code>Bitter-Bold_Font</code> when available.</td>
+                        </tr>
+                        <tr>
+                            <td><code>ArialMT</code></td>
+                            <td>Can resolve to an Unreal Arial asset such as <code>ARIAL_Font</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Inter</code> Regular / Bold</td>
+                            <td>Regular and Bold are handled separately so one style does not force all text to the same weight.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Input widgets</div>
+                    <h2>ETB_, ETBM_, and ETM_ font behavior</h2>
+                    <p class="section-intro">Editable input widgets do not always carry their own Photoshop text style directly. The importer uses their placeholder/child text layer as the font source.</p>
+                    <table class="ref">
+                        <tr>
+                            <th>Widget</th>
+                            <th>How font is resolved</th>
+                        </tr>
+                        <tr>
+                            <td><span class="pfx">ETB_</span></td>
+                            <td>Uses the child <span class="pfx alt">TXT_</span> placeholder/text layer for font, size, color, and placeholder styling.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pfx">ETBM_</span> / <span class="pfx">ETM_</span></td>
+                            <td>Uses the child <span class="pfx alt">TXT_</span> text layer for multi-line input font data.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pfx alt">BG_</span> under input</td>
+                            <td>Used for the input background brush states: normal, hovered, focused, and read-only.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Recommended workflow</div>
+                    <h2>Best practice for reliable font imports</h2>
+                    <ol class="checklist">
+                        <li>
+                            <span class="num">1</span>
+                            <span><b>Import your font files into Unreal first</b>, including each style you use in Photoshop: Regular, Bold, Italic, etc.</span>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <span><b>Name font assets clearly</b>, for example <code>Inter-Regular_Font</code> and <code>Inter-Bold_Font</code>.</span>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <span><b>Run the importer</b>. The auto resolver will try to match the Photoshop family/style to your project font assets.</span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><b>Use Font Mapping for overrides</b> when auto-match cannot know which asset you prefer.</span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><b>Reimport after changing fonts</b>. Generated Widget Blueprints are output assets; reimport to apply updated mappings cleanly.</span>
+                        </li>
+                    </ol>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="unreal-importer.html"><span>Previous</span><b>Unreal Importer</b></a>
+                        <a href="resolution-orientation.html" style="text-align:right"><span>Next</span><b>Resolution & Orientation</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Font Mapping & Font Support · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- UIWB image lightbox: click any help screenshot to enlarge. -->
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img:not(.no-enlarge), .sample-thumb:not(.no-enlarge), img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+    </body>
+</html>

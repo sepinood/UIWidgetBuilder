@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Unreal Importer</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a class="active" href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Unreal side
+                    </div>
+                    <h1>Unreal Importer<br><span class="accent">Wizard & Output</span></h1>
+                    <p class="lead">How to create Widget Blueprints, detached widgets, generated assets, Add To Level logic, and clean imports.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Unreal importer</div>
+                    <h2>Importer wizard overview</h2>
+                    <p class="section-intro">
+    The Unreal importer is the editor-side half of the plugin. It reads <code>layout.json</code>, imports textures, creates Widget Blueprints, and optionally generates Blueprint graph logic. </p>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/Builder.webp" width="856">
+                        <div class="shot-label">UI Widget Builder wizard Step 1, Step 2, Step 3</div>
+                    </div>
+                    <table class="ref">
+                        <tr>
+                            <th>Step</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>Step 1 — Source</td>
+                            <td>Select the exported folder containing <code>layout.json</code> and <code>Textures/</code>. Choose resolution and source settings.</td>
+                        </tr>
+                        <tr>
+                            <td>Step 2 — Widget roots</td>
+                            <td>Choose which root screens to import, which to detach into their own Widget Blueprints, and root-level behavior options.</td>
+                        </tr>
+                        <tr>
+                            <td>Step 3 — Output</td>
+                            <td>Set package names, export path, wrappers, input mode, Add To Level, delete existing generated items, advanced generation options, and saved preset path behavior.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Output path</div>
+                    <h2>Generated assets and clean import</h2>
+                    <p class="section-intro">
+    The Content path controls where generated Widget Blueprints and textures are created. For clean iteration, the importer can delete generated items before importing. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Control</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>Widget Package Name</td>
+                            <td>Main/host Widget Blueprint name, such as <code>WBP_MainMenu</code>, <code>WBP_Loading</code>, or <code>WBP_UIHost</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Export Path</td>
+                            <td>Unreal Content path where generated assets are created, such as <code>/Game/UI/MainMenu</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Saved preset path</td>
+                            <td>The importer can remember the preset path so users can load and save presets from the same location faster on future imports.</td>
+                        </tr>
+                        <tr>
+                            <td>Detached package names</td>
+                            <td>Separate WBP names for roots marked as detached, for example <code>WBP_Settings</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Delete existing generated items before import</td>
+                            <td>Force-deletes previously generated Widget Blueprints in the export path and the generated <code>Textures</code> folder before creating fresh assets.</td>
+                        </tr>
+                    </table>
+                    <div class="callout caution">
+                        <div class="icon">!</div>
+                        <div class="body"><b class="label">Important</b>
+                            <p>This is a delete-before-import system, not an overwrite system. It removes old generated assets first, then imports fresh assets.</p>
+                            <p>Close any open Widget Blueprint tabs for generated assets before using this option.</p>
+                        </div>
+                    </div>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">Recent importer behavior</b>
+                            <p>The importer resolves font mapping without needing to open the Font Mapping popup first, keeps Regular/Bold style matching, applies placeholder fonts to ETB/ETM text inputs, infers wrapped multiline TextBlocks from exported bounds when needed, and protects checkbox-group label clicks by setting those texts to remove hit test.</p>
+                        </div>
+                    </div>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Animated switcher requirement</b>
+                            <p>The <b>Change to Common Animated Switcher</b> option requires the Unreal <b>CommonUI</b> plugin. Enable CommonUI before import when using animated switchers. UE 5.6 uses normal WidgetSwitcher behavior.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Font mapping</div>
+                    <h2>Font support and resolve behavior</h2>
+                    <p class="section-intro">The importer reads the Photoshop font family, style, weight, italic/faux italic, font size, line height, and tracking from <code>layout.json</code>. It then tries to resolve that data to a matching Unreal font asset.</p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h3>How resolve works</h3>
+                            <p>Explicit Font Mapping is used first when available. If no manual mapping is set, the importer tries project font asset names based on family and style, such as Regular or Bold. If no asset is found, the widget is still created and Unreal uses its default font.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Input widgets</h3>
+                            <p><span class="pfx">ETB_</span>, <span class="pfx">ETBM_</span>, and <span class="pfx">ETM_</span> use their child <span class="pfx alt">TXT_</span> placeholder/text layer for font data. <span class="pfx alt">BG_</span> supplies the input background states.</p>
+                        </div>
+                    </div>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">More detail</b>
+                            <p>See the dedicated <a href="font-mapping.html">Font Mapping & Font Support</a> page for missing-font fallback, Regular/Bold style matching, ArialMT handling, and the recommended setup workflow.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Root settings</div>
+                    <h2>Per-screen root options</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Option</th>
+                            <th>Effect</th>
+                        </tr>
+                        <tr>
+                            <td>Import Widget</td>
+                            <td>Include this root screen in the generated output.</td>
+                        </tr>
+                        <tr>
+                            <td>Export as separate Widget</td>
+                            <td>Create this root as its own Widget Blueprint instead of embedding it in the host WBP.</td>
+                        </tr>
+                        <tr>
+                            <td>Visible at Start</td>
+                            <td>Whether the root starts visible in its generated widget.</td>
+                        </tr>
+                        <tr>
+                            <td>Create Modal Background</td>
+                            <td>Creates a modal background layer for the root.</td>
+                        </tr>
+                        <tr>
+                            <td>Create Blur Background</td>
+                            <td>Creates a blur-style background layer.</td>
+                        </tr>
+                        <tr>
+                            <td>Close on Escape / Back</td>
+                            <td>Generates input logic to close/hide this root when the key is pressed.</td>
+                        </tr>
+                        <tr>
+                            <td>Close on Key</td>
+                            <td>Lets a specific key trigger the close behavior.</td>
+                        </tr>
+                        <tr>
+                            <td>Show After Current Widget Closed</td>
+                            <td>Shows another root after this root closes. For detached targets, the importer creates and adds that widget to the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>Pause Game When Visible</td>
+                            <td>Generates pause/unpause behavior when the root appears or closes.</td>
+                        </tr>
+                        <tr>
+                            <td>Play Music When Visible</td>
+                            <td>When Add To Level is used, selected music can play in the Level Blueprint after the selected widget is created and added to viewport.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Add To Level</div>
+                    <h2>Level Blueprint generation</h2>
+                    <p class="section-intro">
+    When enabled, the importer can add a generated node chain to the current Level Blueprint. </p>
+                    <pre><code>Event BeginPlay
+  → UIWB_ADD_TO_LEVEL sequence
+  → CreateWidget(selected WBP)
+  → AddToViewport
+  → PlaySound2D(selected music, if enabled)</code></pre>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Note</b>
+                            <p>Music is generated in the Level Blueprint after widget creation, not inside the generated widget Construct graph.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="layer-naming.html"><span>Previous</span><b>Layer Naming</b></a>
+                        <a href="font-mapping.html" style="text-align:right"><span>Next</span><b>Font Mapping</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- UIWB image lightbox: click any help screenshot to enlarge. -->
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img:not(.no-enlarge), .sample-thumb:not(.no-enlarge), img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+    </body>
+</html>

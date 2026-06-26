@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Resolution &amp; Orientation</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a class="active" href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Importer size
+                    </div>
+                    <h1>Resolution & Orientation<br><span class="accent">Portrait / Landscape</span></h1>
+                    <p class="lead">How the importer uses PSD size, manual resolution, presets, wrappers, and warnings for portrait and landscape UI.</p>
+                    <div class="meta-row">
+                        <span><b>Documentation:</b> User Guide</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Importer size system</div>
+                    <h2>Portrait and landscape support</h2>
+                    <p class="section-intro">
+    The importer supports portrait and landscape layouts through the imported document size and the manual resolution controls.
+    It does not rotate or redesign the UI automatically. The PSD or selected importer size defines the canvas that the generated widget is built around. </p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h3>Portrait</h3>
+                            <p>Width is smaller than height. Typical mobile examples are <code>1080 x 1920</code>, <code>1170 x 2532</code>, and <code>1440 x 2560</code>.</p>
+                            <div class="mini">X &lt; Y</div>
+                        </div>
+                        <div class="card">
+                            <h3>Landscape</h3>
+                            <p>Width is larger than height. Typical desktop/console examples are <code>1920 x 1080</code>, <code>2560 x 1440</code>, and <code>3840 x 2160</code>.</p>
+                            <div class="mini">X &gt; Y</div>
+                        </div>
+                    </div>
+                    <div class="shot" src="external/samples/Exporter/Export_Worlflow.jpg">
+                        <img src="external/samples/Exporter/Auto%20Rotate.webp" width="861">
+                        <div class="shot-label">&nbsp;portrait vs landscape importer size</div>
+                        <div class="shot-sub">two generated SizeBox frames, one 1080×1920 and one 1920×1080, showing the same root UI scaling differently.</div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">How size is chosen</div>
+                    <h2>PSD size vs manual resolution</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Mode</th>
+                            <th>What happens</th>
+                            <th>Best use</th>
+                        </tr>
+                        <tr>
+                            <td>Use PSD Size enabled</td>
+                            <td>The importer uses <code>document.width</code> and <code>document.height</code> from <code>layout.json</code>.</td>
+                            <td>Most accurate. Use when the PSD was designed at the intended final UI size.</td>
+                        </tr>
+                        <tr>
+                            <td>Use PSD Size disabled</td>
+                            <td>The importer uses the selected preset or manual <code>ResolutionX</code> / <code>ResolutionY</code> values.</td>
+                            <td>Useful when you want to test a different portrait/landscape frame or normalize designs to a target resolution.</td>
+                        </tr>
+                        <tr>
+                            <td>Missing document size</td>
+                            <td>The importer falls back to <code>ResolutionX</code> and <code>ResolutionY</code>.</td>
+                            <td>Fallback for incomplete JSON or external layout generators.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Preset sizes</div>
+                    <h2>Built-in resolution presets found in the source</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Platform</th>
+                            <th>Presets</th>
+                            <th>Default behavior</th>
+                        </tr>
+                        <tr>
+                            <td>Desktop</td>
+                            <td><code>1280 x 720</code>, <code>1600 x 900</code>, <code>1920 x 1080</code>, <code>2560 x 1440</code>, <code>3840 x 2160</code></td>
+                            <td>Pixel-perfect layout, Mouse + Keyboard input.</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td><code>720 x 1280</code>, <code>1080 x 1920</code>, <code>1170 x 2532</code>, <code>1242 x 2688</code>, <code>1440 x 2560</code></td>
+                            <td>SafeZone enabled, Touch input.</td>
+                        </tr>
+                        <tr>
+                            <td>Console</td>
+                            <td><code>1920 x 1080</code>, <code>2560 x 1440</code>, <code>3840 x 2160</code></td>
+                            <td>SafeZone enabled, Gamepad input.</td>
+                        </tr>
+                    </table>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body"><b class="label">Warnings are guidance, not blockers</b>
+                            <p>The importer warns when Mobile is landscape or Desktop/Console is portrait. You can still import if the design was intentionally made that way.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Wrappers</div>
+                    <h2>How SizeBox, ScaleBox, and SafeZone affect orientation</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Wrapper</th>
+                            <th>Effect</th>
+                            <th>Caution</th>
+                        </tr>
+                        <tr>
+                            <td>SizeBox</td>
+                            <td>Locks the generated layout to the document/import size using width and height overrides.</td>
+                            <td>It does not rearrange children. It only defines the design frame.</td>
+                        </tr>
+                        <tr>
+                            <td>ScaleBox</td>
+                            <td>Scales the full layout to fit the available area.</td>
+                            <td>Good for cross-resolution scaling, but not a substitute for a separate portrait PSD.</td>
+                        </tr>
+                        <tr>
+                            <td>SafeZone</td>
+                            <td>Keeps UI away from unsafe screen areas, especially mobile and console.</td>
+                            <td>SafeZone wraps one child. The generated wrapper chain is ordered to avoid invalid hierarchy.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Restrictions</div>
+                    <h2>Orientation limitations</h2>
+                    <div class="callout caution">
+                        <div class="icon">!</div>
+                        <div class="body"><b class="label">No automatic responsive redesign</b>
+                            <p>Changing the importer size does not convert a landscape PSD into a real portrait layout. Positions, anchors, and proportions still come from the exported design data.</p>
+                            <p>For production, create separate PSD exports for major orientation differences, or design with ScaleBox/SafeZone behavior in mind.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="font-mapping.html"><span>Previous</span><b>Font Mapping</b></a>
+                        <a href="auto-generated-logic.html" style="text-align:right"><span>Next</span><b>Auto-Generated Logic</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · User documentation · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">▤ PSD Exporter JSX Help</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- UIWB image lightbox: click any help screenshot to enlarge. -->
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img:not(.no-enlarge), .sample-thumb:not(.no-enlarge), img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+    </body>
+</html>

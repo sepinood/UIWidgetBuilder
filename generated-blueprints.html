@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Generated Blueprints</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a class="active" href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Generated output
+                    </div>
+                    <h1>Generated Blueprints<br><span class="accent">Assets & Graphs</span></h1>
+                    <p class="lead">What the importer creates inside Unreal and how generated graph logic is organized.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Generated files</div>
+                    <h2>What the importer creates</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Asset</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>Main WBP</td>
+                            <td>The main generated Widget Blueprint. It may contain all imported roots or only the non-detached host screen.</td>
+                        </tr>
+                        <tr>
+                            <td>Detached WBPs</td>
+                            <td>Separate Widget Blueprints for root screens marked as detached.</td>
+                        </tr>
+                        <tr>
+                            <td>Textures folder</td>
+                            <td>Imported UTexture2D assets used by generated widgets.</td>
+                        </tr>
+                        <tr>
+                            <td>Level Blueprint nodes</td>
+                            <td>Optional BeginPlay node chain that creates and displays the selected generated WBP.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Blueprint graph</div>
+                    <h2>Generated graph blocks</h2>
+                    <p class="section-intro">The importer adds graph sections for interaction features that are enabled in the wizard.</p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h3>Construct logic</h3>
+                            <p>Input mode, cursor visibility, generated setup functions, root visibility initialization, and checkbox-group first-item initialization.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Button events</h3>
+                            <p>Close, toggle visibility, switch tab, load level, SFX, enable/visible target logic, and child-text hover effects.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Input events</h3>
+                            <p>Close on Escape/Back and close on selected key.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Level Blueprint</h3>
+                            <p>Add To Level, AddToViewport, optional PlaySound2D music call.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Compatibility</div>
+                    <h2>UE 5.6 / 5.7 / 5.8 notes</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Area</th>
+                            <th>Recommended state</th>
+                        </tr>
+                        <tr>
+                            <td>Deprecated ComboBox foreground access</td>
+                            <td>Avoid direct <code>ForegroundColor =</code> assignment and avoid non-existent <code>SetForegroundColor()</code> on <code>UComboBoxString</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>ProgressBar border padding</td>
+                            <td>Use <code>SetBorderPadding(...)</code>, not direct <code>BorderPadding =</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Common Animated Switcher</td>
+                            <td>Requires the Unreal <b>CommonUI</b> plugin. Supported for UE 5.7 / UE 5.8. UE 5.6 keeps normal <code>WidgetSwitcher</code> behavior.</td>
+                        </tr>
+                        <tr>
+                            <td>Fab source header</td>
+                            <td>Allow licensed users to compile and modify source for their projects while forbidding resale, redistribution, and sublicensing as a standalone product.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="presets-and-logic.html"><span>Previous</span><b>Presets & Logic</b></a>
+                        <a href="troubleshooting.html" style="text-align:right"><span>Next</span><b>Troubleshooting</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </body>
+</html>

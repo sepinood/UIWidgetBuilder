@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Auto-Generated Logic</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a class="active" href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Blueprint generation
+                    </div>
+                    <h1>Auto-Generated Logic<br><span class="accent">Menus, Switchers, Events</span></h1>
+                    <p class="lead">A practical reference for generated Blueprint logic: sibling menu matching, WidgetSwitcher tabs, close/show flow, volume sliders, video, timers, blinking, progress, and auto-scroll.</p>
+                    <div class="meta-row">
+                        <span><b>Documentation:</b> User Guide</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Generated Blueprint logic</div>
+                    <h2>What the importer can generate automatically</h2>
+                    <p class="section-intro">
+    The importer can generate several Blueprint graph systems. Some are complete runtime helpers, while some are clean helper sections designed to give users a practical starting point for project-specific Blueprint work. </p>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/Logic.webp" width="868">
+                        <div class="shot-label">generated graph systems</div>
+                        <div class="shot-sub"></div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Sibling/menu targeting</div>
+                    <h2>Automatic button target matching</h2>
+                    <p class="section-intro">
+    When a button does not have an explicit interaction target, the importer builds a visibility-target map from the JSON and tries to match button names to screen/group names. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Example</th>
+                            <th>Matched target</th>
+                            <th>Generated behavior</th>
+                        </tr>
+                        <tr>
+                            <td><code>BTN_Settings</code></td>
+                            <td><code>CAN_Settings</code> / <code>GRP_Settings</code> / <code>PNL_Settings</code></td>
+                            <td>OnClicked can toggle or show the matching target widget.</td>
+                        </tr>
+                        <tr>
+                            <td><code>BTN_Quit</code></td>
+                            <td><code>CAN_QuitWindow</code> or <code>GRP_Quit</code></td>
+                            <td>Useful for sibling popup menus such as Quit, Settings, Character Select.</td>
+                        </tr>
+                        <tr>
+                            <td><code>BTN_Start</code></td>
+                            <td>Not another <code>BTN_Start</code></td>
+                            <td>Button groups are excluded as automatic visibility targets to prevent self-toggle mistakes.</td>
+                        </tr>
+                    </table>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body"><b class="label">Target priority</b>
+                            <p>The source prioritizes targets in this order: <code>CAN_</code> / screen first, then <code>GRP_</code>, then unprefixed containers, then <code>PNL_</code>. This helps <code>BTN_Settings</code> choose a real screen before a decorative panel.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">WidgetSwitcher</div>
+                    <h2>Tabs, switchers, and Common Animated Switcher</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Feature</th>
+                            <th>Generated result</th>
+                            <th>Restriction</th>
+                        </tr>
+                        <tr>
+                            <td><code>switchTab</code> button metadata</td>
+                            <td>OnClicked → <code>SetActiveWidgetIndex</code> on the target WidgetSwitcher.</td>
+                            <td>The button must target a direct page/child of a <code>WSW_</code> / <code>WIS_</code> switcher in the exporter data.</td>
+                        </tr>
+                        <tr>
+                            <td>WidgetSwitcher active index helpers</td>
+                            <td>Custom events named like <code>UIWB_Switcher_SetIndex_0</code>.</td>
+                            <td>Generated only for detected switcher/page data.</td>
+                        </tr>
+                        <tr>
+                            <td>Change to Common Animated Switcher</td>
+                            <td>Creates the switcher as CommonUI's <code>CommonAnimatedSwitcher</code> / <code>UCommonAnimatedSwitcher</code> when available.</td>
+                            <td>Requires the Unreal <b>CommonUI</b> plugin and is for UE 5.7 / UE 5.8. UE 5.6 keeps normal <code>WidgetSwitcher</code> behavior.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Root close/show logic</div>
+                    <h2>Close On Key and Show After Close</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Option</th>
+                            <th>Generated logic</th>
+                            <th>Caution</th>
+                        </tr>
+                        <tr>
+                            <td>Close on the Key</td>
+                            <td>Creates close-key logic for the selected root and hides it after the close flow.</td>
+                            <td>Use specific keys when possible. <code>Any Key</code> can close on broad keyboard/gamepad input.</td>
+                        </tr>
+                        <tr>
+                            <td>Show After Close</td>
+                            <td>Shows another root after the current root closes.</td>
+                            <td>The target list filters invalid roots and excludes the current root.</td>
+                        </tr>
+                        <tr>
+                            <td>Detached target</td>
+                            <td>Creates the detached widget and adds it to the viewport.</td>
+                            <td>Detached roots must be imported and have a valid generated WBP name.</td>
+                        </tr>
+                        <tr>
+                            <td>Pause Game When Visible</td>
+                            <td>Generates pause/unpause helper events for the root.</td>
+                            <td>Test carefully with menus that also use level transitions.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Button logic</div>
+                    <h2>Generated button events</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Option / pattern</th>
+                            <th>Generated result</th>
+                        </tr>
+                        <tr>
+                            <td>Add Click SFX</td>
+                            <td>Adds a click event helper chain and click sound helper logic.</td>
+                        </tr>
+                        <tr>
+                            <td>Add Hover SFX</td>
+                            <td>Generates an <code>OnHovered</code> event and sound helper logic.</td>
+                        </tr>
+                        <tr>
+                            <td>Button-child text hover options</td>
+                            <td>Generates hover/unhover events for child TextBlocks. Supported options include flipped color on hover, center scale on hover, and move-to-right on hover.</td>
+                        </tr>
+                        <tr>
+                            <td>Close Parent Screen</td>
+                            <td>OnClicked closes/hides the parent screen target.</td>
+                        </tr>
+                        <tr>
+                            <td>Enable/Visible widget</td>
+                            <td>OnClicked sets a selected root visible and enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>Load Level On Click</td>
+                            <td>Generates an Open Level by Name node chain.</td>
+                        </tr>
+                        <tr>
+                            <td>Create Widget By Click/Touch</td>
+                            <td>Generates OnClicked logic that creates the selected widget class and adds it to the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td><code>BTN_Exit</code> / quit style flow</td>
+                            <td>Can generate a QuitGame node path depending on the imported action data/settings.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Runtime helper systems</div>
+                    <h2>Other generated graph systems</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>System</th>
+                            <th>Generated result</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td>CHKG_ checkbox group</td>
+                            <td>Creates checkbox array, initializes the first checkbox as the default checked item, and tracks LastCheckBoxCheck for mutual exclusion.</td>
+                            <td>Needs at least two checkbox/toggle members. Text labels under the group are set to remove hit test so they do not block checkbox clicks.</td>
+                        </tr>
+                        <tr>
+                            <td>Volume sliders</td>
+                            <td>Generates OnValueChanged helper graph for Master/SFX/Music volume sliders.</td>
+                            <td>Project sound classes/mixes may need manual assignment.</td>
+                        </tr>
+                        <tr>
+                            <td>Editable text</td>
+                            <td>Clear text helper event, OnTextCommitted Submit On Enter path, empty validation branch, password flag for text boxes.</td>
+                            <td>Clear-on-focus is provided as a helper event; verify final focus behavior in your project.</td>
+                        </tr>
+                        <tr>
+                            <td>Image Play Video</td>
+                            <td>Creates a MediaPlayer variable and PlayVideo helper graph for the selected image.</td>
+                            <td>User should assign the MediaPlayer asset manually in the generated widget.</td>
+                        </tr>
+                        <tr>
+                            <td>Text TimeCounter</td>
+                            <td>Creates a counter variable, Tick-driven update path, converts time to text, and updates a TextBlock.</td>
+                            <td>One generated counter variable per selected TextBlock.</td>
+                        </tr>
+                        <tr>
+                            <td>Blinking Effect</td>
+                            <td>Uses real time seconds and SetRenderOpacity to pulse a selected text/image widget.</td>
+                            <td>Generated only for supported selected elements.</td>
+                        </tr>
+                        <tr>
+                            <td>ProgressBar FillBar</td>
+                            <td>Creates a percent variable and runtime update graph for SetPercent.</td>
+                            <td>Use the generated variable as the driving value.</td>
+                        </tr>
+                        <tr>
+                            <td>ScrollBox Auto Scroll</td>
+                            <td>Generates auto-scroll logic with looping reset behavior.</td>
+                            <td>Best for credits, menus, or auto-moving lists.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Level Blueprint</div>
+                    <h2>Add Widget To Current Level</h2>
+                    <pre><code>Level Blueprint BeginPlay
+  → UIWB_ADD_TO_LEVEL
+  → CreateWidget(selected WBP)
+  → AddToViewport
+  → PlaySound2D(selected music, if enabled)</code></pre>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body"><b class="label">Important</b>
+                            <p>The generated Level Blueprint path depends on the currently open editor level. Check the Level Blueprint after import if the widget does not appear in PIE.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="resolution-orientation.html"><span>Previous</span><b>Resolution & Orientation</b></a>
+                        <a href="features-restrictions.html" style="text-align:right"><span>Next</span><b>Features & Restrictions</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · User documentation · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">▤ PSD Exporter JSX Help</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- UIWB image lightbox: click any help screenshot to enlarge. -->
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img:not(.no-enlarge), .sample-thumb:not(.no-enlarge), img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+    </body>
+</html>

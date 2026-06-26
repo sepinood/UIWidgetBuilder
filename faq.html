@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Widget Builder Help — FAQ</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><div class="brand">UI Widget Builder</div><div class="brand-sub">Complete Help Site</div>
+<div class="group-title">Documentation</div>
+<a href="index.html">Overview</a>
+<a href="quick-start.html">Quick Start</a>
+<a href="installation.html">Installation</a>
+<a href="psd-exporter.html">PSD Exporter</a>
+<a href="layer-naming.html">Layer Naming</a>
+<a href="unreal-importer.html">Unreal Importer</a>
+<a href="font-mapping.html">Font Mapping</a>
+<a href="resolution-orientation.html">Resolution & Orientation</a>
+<a href="auto-generated-logic.html">Auto-Generated Logic</a>
+<a href="features-restrictions.html">Features & Restrictions</a>
+<a href="presets-and-logic.html">Presets & Logic</a>
+<a href="generated-blueprints.html">Generated Blueprints</a>
+<a href="troubleshooting.html">Troubleshooting</a>
+<a class="active" href="faq.html">FAQ / Release Notes</a>
+<div class="group-title">External</div>
+<a href="external/psd-samples.html">PSD Sample Files</a>
+<a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a>
+<a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a>
+<a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a>
+<a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</nav>
+<main>
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span>Final notes</div>
+  <h1>FAQ & Release Notes<br><span class="accent">User Support</span></h1>
+  <p class="lead">Useful support notes, release-note placeholders, and external links.</p>
+  <div class="meta-row"><span><b>Plugin:</b> UI Widget Builder</span><span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span><span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span><span><b>Author:</b> Ali Shantia</span></div>
+</header>
+
+<section>
+  <div class="section-label">FAQ</div>
+  <h2>Frequently asked questions</h2>
+  <table class="ref">
+    <tr><th>Question</th><th>Answer</th></tr>
+    <tr><td>Is delete-existing an overwrite system?</td><td>No. It deletes generated items first, then imports fresh assets.</td></tr>
+    <tr><td>Can a screen be exported as its own Widget Blueprint?</td><td>Yes. Enable Export as separate Widget on that root.</td></tr>
+    <tr><td>Can Add To Level spawn a detached widget?</td><td>Yes. Choose the detached WBP from the Add To Level dropdown.</td></tr>
+    <tr><td>Where should music play?</td><td>Current preferred flow is Level Blueprint after CreateWidget and AddToViewport, not inside the Widget Construct graph.</td></tr>
+    <tr><td>Can the importer preserve manual edits inside generated WBPs?</td><td>No. Treat generated assets as generated output. Keep manual work in separate Blueprints or wrapper widgets.</td></tr>
+    <tr><td>Can I use this for small UI, not just game menus?</td><td>Yes. Any structured PSD UI can be converted if layers follow the naming rules.</td></tr>
+    <tr><td>Does UI Widget Builder include my Photoshop fonts?</td><td>No. The exporter records font names and styles, but users must import the matching font assets into Unreal or use the default-font fallback.</td></tr>
+    <tr><td>What happens if a font is missing?</td><td>The widget is still generated. Text uses Unreal's default font until the correct font asset is imported or mapped.</td></tr>
+    <tr><td>Do I need to open Font Mapping before import?</td><td>No. The current importer can resolve fonts without opening the popup. Use Font Mapping only when you need to override or fix an auto-match.</td></tr>
+    <tr><td>Which Unreal Engine versions are supported?</td><td>UI Widget Builder supports Unreal Engine 5.6, 5.7, and 5.8.</td></tr>
+    <tr><td>Do I need CommonUI?</td><td>Only for the Common Animated Switcher option. Enable the Unreal CommonUI plugin before importing if you want animated switcher page transitions. Normal WidgetSwitcher imports do not require CommonUI.</td></tr>
+    <tr><td>Can the importer remember my preset folder?</td><td>Yes. The importer can save the preset path so you can reuse the same preset location more quickly on future imports.</td></tr>
+    <tr><td>How are ETB_ and ETM_ fonts chosen?</td><td>The importer reads the child TXT_ placeholder/text layer inside the input group and applies that font data to the editable text widget.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Release notes placeholder</div>
+  <h2>Suggested release note sections</h2>
+  <div class="grid two">
+    <div class="card"><h3>Recent importer/exporter updates</h3><p>64×64 optimize now protects rounded/masked/effect art; CHKG_ groups start with the first item checked; group text labels remove hit test; button-child text hover, wrap, font mapping, and ETB/ETM font handling are improved.</p></div>
+    <div class="card"><h3>Version 1.0</h3><p>Initial Fab release. Include PSD exporter, Unreal importer, prefix-based widgets, presets, generated Blueprint logic, clean re-import, and example project.</p></div>
+    <div class="card"><h3>Compatibility</h3><p>UI Widget Builder supports Unreal Engine 5.6, 5.7, and 5.8. Common Animated Switcher requires CommonUI in UE 5.7 / UE 5.8.</p></div>
+    <div class="card"><h3>Known limitations</h3><p>Generated assets should be regenerated from PSD/JSON. Manual edits inside generated widgets may be lost during clean re-import.</p></div>
+    <div class="card"><h3>Support info</h3><p>Ask users to attach layout.json, screenshots, and Output Log errors when requesting help.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Resources</div>
+  <h2>Links</h2>
+  <div class="grid three">
+    <a class="card" href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer"><h3>YouTube tutorials</h3><p>Video tutorials and walkthroughs.</p><div class="mini">youtube.com/@sepinoodstudio</div></a>
+    <a class="card" href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer"><h3>Fab marketplace</h3><p>Publisher page for assets and plugins.</p><div class="mini">fab.com/sellers/Ali Shantia(Sepinood)</div></a>
+    <a class="card" href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer"><h3>LinkedIn</h3><p>Professional profile.</p><div class="mini">linkedin.com/in/ali-shantia</div></a>
+  </div>
+</section>
+
+<section><div class="nextprev"><a href="troubleshooting.html"><span>Previous</span><b>Troubleshooting</b></a><span></span></div></section>
+<footer class="footer">
+  UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a>
+    <a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a>
+    <a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+  </div>
+</footer>
+</main>
+</div>
+</body>
+</html>

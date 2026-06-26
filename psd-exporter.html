@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — PSD Exporter</title>
+        <link rel="stylesheet" href="assets/style.css">
+    
+<style>
+/* Click-to-enlarge images inside help screenshots */
+.shot img,
+.zoomable-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: zoom-in;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.shot img:hover,
+.zoomable-image:hover {
+    transform: translateY(-2px) scale(1.015);
+    filter: brightness(1.06);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+}
+
+.shot-link {
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.shot-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 6px 12px;
+    color: var(--accent);
+    background: var(--panel);
+    text-decoration: none;
+}
+
+.shot-link a:hover {
+    border-color: var(--accent-soft);
+    text-decoration: none;
+}
+
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.86);
+    backdrop-filter: blur(4px);
+}
+
+.image-lightbox.is-open {
+    display: flex;
+}
+
+.image-lightbox img {
+    max-width: min(96vw, 1600px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    cursor: zoom-out;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
+}
+
+.image-lightbox .lightbox-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(28, 28, 28, 0.85);
+    color: #fff;
+    font-size: 26px;
+    line-height: 34px;
+    cursor: pointer;
+}
+
+.image-lightbox .lightbox-close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+</style>
+
+</head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a class="active" href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Photoshop side
+                    </div>
+                    <h1>PSD Exporter<br><span class="accent">layout.json + Textures</span></h1>
+                    <p class="lead">How the JSX exporter prepares Photoshop layer data for the Unreal importer.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Photoshop exporter</div>
+                    <h2>What the JSX exporter writes</h2>
+                    <p class="section-intro">
+    The Photoshop exporter scans the visible layer tree, exports texture PNGs, and writes a single JSON file that describes widgets, layout, styling, text data, and interaction metadata. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Output</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><code>layout.json</code></td>
+                            <td>Main file read by the Unreal importer. Contains document size, root groups, widget layers, text data, slots, styles, actions, and warnings.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Textures/</code></td>
+                            <td>PNG files used by Image, Button state brushes, Slider parts, CheckBox parts, panels, backgrounds, and icons.</td>
+                        </tr>
+                        <tr>
+                            <td>Warnings</td>
+                            <td>Skipped layers, unsupported structures, empty bounds, missing state art, and other issues are written into the JSON warnings array and shown after export.</td>
+                        </tr>
+                    </table>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/Exporter_UI.webp" width="528">
+                        <div class="shot-sub">export path, remember checkbox, export options, Prep Layers, Fill States, Export PSD.</div>
+                        <div class="shot-link"><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">Open full PSD Exporter JSX Help</a></div>
+                        <div class="shot-link"><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a></div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Exporter tools</div>
+                    <h2>Toolbar utilities</h2>
+                    <div class="grid three">
+                        <div class="card">
+                            <h3>Prep Layers</h3>
+                            <p>Finds visible text/image layers without recognized prefixes and lets users apply suggested names.</p>
+                            <div class="mini">Best before export</div>
+                        </div>
+                        <div class="card">
+                            <h3>Fill States</h3>
+                            <p>Scans <span class="pfx">BTN_</span> groups and duplicates existing state art to create missing Normal, Hover, and Pressed layers.</p>
+                            <div class="mini">Creates Photoshop layers</div>
+                        </div>
+                        <div class="card">
+                            <h3>Export PSD</h3>
+                            <p>Writes the final <code>layout.json</code> and <code>Textures/</code>. A progress window can cancel after the current texture operation.</p>
+                            <div class="mini">Creates output files</div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Export options</div>
+                    <h2>Exporter option reference</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Option</th>
+                            <th>Effect</th>
+                        </tr>
+                        <tr>
+                            <td>Skip invisible layers</td>
+                            <td>Hidden layers and groups are excluded. Use visibility to keep work-in-progress layers out of the export.</td>
+                        </tr>
+                        <tr>
+                            <td>Skip textures that already exist</td>
+                            <td>Speeds layout iteration by not re-rendering already exported PNGs. Use carefully when art changes.</td>
+                        </tr>
+                        <tr>
+                            <td>Delete existing Textures folder and layout.json</td>
+                            <td>Clean Photoshop-side export. Deletes old exported files before writing new ones.</td>
+                        </tr>
+                        <tr>
+                            <td>Show warning summary</td>
+                            <td>Shows warning count and first warning after export; full warnings remain in JSON.</td>
+                        </tr>
+                        <tr>
+                            <td>Reveal output folder</td>
+                            <td>Opens the folder after export completes.</td>
+                        </tr>
+                        <tr>
+                            <td>Optimize solid-color layers</td>
+                            <td>Exports safe flat single-color art as 64×64 stretched textures to reduce file size. Rounded-corner art, vector/user masks, and layer effects are protected and stay full-size.</td>
+                        </tr>
+                        <tr>
+                            <td>Auto-fill missing button states</td>
+                            <td>Reuses available button-state texture data in JSON when Normal/Hover/Pressed is missing.</td>
+                        </tr>
+                    </table>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">Solid-color optimize safety</b>
+                            <p>The 64×64 optimization is only for rectangular flat-color layers. The exporter skips this optimization for rounded corners, transparent/masked edges, vector or user masks, and layer effects such as stroke, shadow, or glow. Dark/black rounded panels are also checked with a light probe so transparent corners are not mistaken for solid black.</p>
+                        </div>
+                    </div>
+                    <div class="callout caution">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Destructive option</b>
+                            <p>Deleting the existing <code>Textures</code> folder and <code>layout.json</code> cannot be undone from the exporter. Use it only when you want a clean export.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Texture naming</div>
+                    <h2>Shared textures and ID markers</h2>
+                    <p class="section-intro">
+    Some repeated art can be shared intentionally. This reduces duplicated PNGs, but incorrect sharing names can make unrelated UI parts reuse the wrong texture. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td><code>IMG_Icon_IDN_A</code></td>
+                            <td>Explicit shared texture key <code>A</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>IMG_Hover_A</code></td>
+                            <td>Button-state suffix sharing.</td>
+                        </tr>
+                        <tr>
+                            <td><code>BG_Window_B</code></td>
+                            <td>One-letter generic sharing key for supported image-part prefixes.</td>
+                        </tr>
+                    </table>
+                    <div class="callout caution">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Important</b>
+                            <p>Shared texture keys are global for the export. Do not reuse the same key for unrelated art.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="installation.html"><span>Previous</span><b>Installation</b></a>
+                        <a href="layer-naming.html" style="text-align:right"><span>Next</span><b>Layer Naming</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img, img.zoomable-image').forEach(function (img) {
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', img.alt || 'Click to enlarge image');
+
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+
+        img.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openLightbox(img);
+            }
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+</body>
+</html>

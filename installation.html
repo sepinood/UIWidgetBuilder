@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Installation</title>
+        <link rel="stylesheet" href="assets/style.css">
+    
+<style>
+/* Click-to-enlarge images inside help screenshots */
+.shot img,
+.zoomable-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: zoom-in;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.shot img:hover,
+.zoomable-image:hover {
+    transform: translateY(-2px) scale(1.015);
+    filter: brightness(1.06);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+}
+
+.shot-link {
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.shot-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 6px 12px;
+    color: var(--accent);
+    background: var(--panel);
+    text-decoration: none;
+}
+
+.shot-link a:hover {
+    border-color: var(--accent-soft);
+    text-decoration: none;
+}
+
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.86);
+    backdrop-filter: blur(4px);
+}
+
+.image-lightbox.is-open {
+    display: flex;
+}
+
+.image-lightbox img {
+    max-width: min(96vw, 1600px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    cursor: zoom-out;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
+}
+
+.image-lightbox .lightbox-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(28, 28, 28, 0.85);
+    color: #fff;
+    font-size: 26px;
+    line-height: 34px;
+    cursor: pointer;
+}
+
+.image-lightbox .lightbox-close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+</style>
+
+</head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a class="active" href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Project setup
+                    </div>
+                    <h1>Installation<br><span class="accent">Engine Support & Required Plugins</span></h1>
+                    <p class="lead">Install UI Widget Builder in your Unreal project, confirm the supported engine version, and enable optional engine plugins before importing advanced widgets.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Supported:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Optional:</b> CommonUI for animated switchers</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Supported versions</div>
+                    <h2>Unreal Engine compatibility</h2>
+                    <p class="section-intro">UI Widget Builder supports Unreal Engine <b>5.6</b>, <b>5.7</b>, and <b>5.8</b>. Use the plugin build that matches your engine version.</p>
+                    <table class="ref">
+                        <tr>
+                            <th>Engine version</th>
+                            <th>Supported behavior</th>
+                        </tr>
+                        <tr>
+                            <td>UE 5.6</td>
+                            <td>Supported. Widget switchers import as normal <code>WidgetSwitcher</code> widgets.</td>
+                        </tr>
+                        <tr>
+                            <td>UE 5.7</td>
+                            <td>Supported. Common Animated Switcher can be used when the CommonUI plugin is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>UE 5.8</td>
+                            <td>Supported. Common Animated Switcher can be used when the CommonUI plugin is enabled.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Install plugin</div>
+                    <h2>Basic project installation</h2>
+                    <ol class="checklist">
+                        <li>
+                            <span class="num">1</span>
+                            <div>
+                                <b>Copy the plugin.</b> Place the <code>UIWidgetBuilder</code> plugin folder inside your project <code>Plugins/</code> directory.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <div>
+                                <b>Open Unreal Engine.</b> If Unreal asks to rebuild project modules, allow the rebuild.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <div>
+                                <b>Enable UI Widget Builder.</b> Go to <b>Edit → Plugins</b>, search for <b>UI Widget Builder</b>, enable it, then restart the editor if requested.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <div>
+                                <b>Open the importer from the Tools menu.</b> In Unreal, go to <b>Tools → UI Widget Builder</b> to launch the editor window, then select the exported PSD folder that contains <code>layout.json</code> and <code>Textures/</code>.
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">Where to find it</b>
+                            <p>After the plugin is enabled and Unreal is restarted, open the UI Widget Builder importer from the main editor menu: <b>Tools → UI Widget Builder</b>.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">CommonUI requirement</div>
+                    <h2>Animated Widget Switcher setup</h2>
+                    <p class="section-intro">The <b>Change to Common Animated Switcher</b> option requires Unreal Engine's <b>CommonUI</b> plugin. Enable CommonUI before importing if you want animated page transitions.</p>
+                    <table class="ref">
+                        <tr>
+                            <th>Option</th>
+                            <th>Required setup</th>
+                            <th>Result</th>
+                        </tr>
+                        <tr>
+                            <td>Normal WidgetSwitcher</td>
+                            <td>No extra plugin required.</td>
+                            <td>Works in UE 5.6, 5.7, and 5.8.</td>
+                        </tr>
+                        <tr>
+                            <td>Common Animated Switcher</td>
+                            <td>Enable <b>CommonUI</b> in <b>Edit → Plugins</b>, then restart Unreal.</td>
+                            <td>Available for UE 5.7 and UE 5.8 imports that use the animated switcher option.</td>
+                        </tr>
+                        <tr>
+                            <td>UE 5.6</td>
+                            <td>No animated switcher conversion is used.</td>
+                            <td>The importer keeps normal <code>WidgetSwitcher</code> behavior.</td>
+                        </tr>
+                    </table>
+                    <div class="callout caution">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Important</b>
+                            <p>If CommonUI is not enabled, do not use the animated switcher option. Use the normal WidgetSwitcher import, or enable CommonUI and import again.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Preset path</div>
+                    <h2>Saving the preset path</h2>
+                    <p class="section-intro">The importer can save the preset path, so users do not need to browse to the same preset location every time.</p>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/PresetManager.webp" width="839" height="231">
+                        <div class="shot-sub">Importer preset area showing the preset path field, browse button, and save/remember preset path option.</div>
+                    </div>
+                    <div class="grid two">
+                        <div class="card">
+                            <h3>Save preset path</h3>
+                            <p>Use the preset path save option in the importer to remember the folder or file path used for UI Widget Builder presets.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Faster repeated imports</h3>
+                            <p>After saving the path, open the preset manager and load or save presets from the remembered location during future import sessions.</p>
+                        </div>
+                    </div>
+                    <div class="callout notice">
+                        <div class="icon">!</div>
+                        <div class="body">
+                            <b class="label">Saved preset location</b>
+                            <p>Saved usage presets are stored inside the project <code>Saved</code> folder: <code>Saved/UIWidgetBuilder/UsagePresets</code>.</p>
+                        </div>
+                    </div>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">Tip</b>
+                            <p>Use the saved preset path when you want the same UI import presets available across repeated import sessions without browsing manually every time.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="quick-start.html"><span>Previous</span><b>Quick Start</b></a>
+                        <a href="psd-exporter.html" style="text-align:right"><span>Next</span><b>PSD Exporter</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img, img.zoomable-image').forEach(function (img) {
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', img.alt || 'Click to enlarge image');
+
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+
+        img.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openLightbox(img);
+            }
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+</body>
+</html>

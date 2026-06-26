@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Troubleshooting</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a class="active" href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>Support
+                    </div>
+                    <h1>Troubleshooting<br><span class="accent">Fix Common Issues</span></h1>
+                    <p class="lead">Common problems, likely causes, and practical fixes for exporter/importer workflows.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Troubleshooting</div>
+                    <h2>Common problems and fixes</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Problem</th>
+                            <th>Likely cause</th>
+                            <th>Fix</th>
+                        </tr>
+                        <tr>
+                            <td>Widget does not appear</td>
+                            <td>Root not imported, starts hidden, or Add To Level selected another WBP.</td>
+                            <td>Check root Import Widget, Visible at Start, and Add To Level selection.</td>
+                        </tr>
+                        <tr>
+                            <td>Texture missing</td>
+                            <td>Layer was hidden, unsupported, empty bounds, or texture path mismatch.</td>
+                            <td>Check exporter warnings and <code>Textures/</code> output.</td>
+                        </tr>
+                        <tr>
+                            <td>Button does nothing</td>
+                            <td>Name does not match target root/group, or child logic option was not enabled.</td>
+                            <td>Use matching names: <code>BTN_Settings</code> targets <code>CAN_Settings</code> / <code>GRP_Settings</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Delete generated items fails</td>
+                            <td>Generated Widget Blueprint is open in editor or referenced by a loaded asset.</td>
+                            <td>Close open Blueprint editor tabs and try again.</td>
+                        </tr>
+                        <tr>
+                            <td>Old assets remain after import</td>
+                            <td>Delete existing generated items was disabled or canceled.</td>
+                            <td>Enable delete-before-import for clean iteration.</td>
+                        </tr>
+                        <tr>
+                            <td>Music does not play</td>
+                            <td>No music asset selected or Add To Level not used.</td>
+                            <td>Select a sound asset and verify the Level Blueprint node chain is generated.</td>
+                        </tr>
+                        <tr>
+                            <td>Wrong button state art</td>
+                            <td>State layer names are not recognized or shared texture key reused accidentally.</td>
+                            <td>Use <code>IMG_Normal</code>, <code>IMG_Hover</code>, <code>IMG_Pressed</code>; check sharing suffixes.</td>
+                        </tr>
+                        <tr>
+                            <td>Text direction wrong</td>
+                            <td>Text layer was not detected as RTL or font asset missing.</td>
+                            <td>Use a proper RTL font and check text/font settings.</td>
+                        </tr>
+                        <tr>
+                            <td>All text imports with Unreal default font</td>
+                            <td>The Photoshop font is not imported in Unreal or the font asset name cannot be auto-matched.</td>
+                            <td>Import the TTF/OTF/Font asset into the project, or use Font Mapping to manually connect the Photoshop font family to an Unreal font asset.</td>
+                        </tr>
+                        <tr>
+                            <td>Regular text imports as Bold, or Bold imports as Regular</td>
+                            <td>Only one style exists in the project, or the font asset names do not separate Regular/Bold clearly.</td>
+                            <td>Import each style as its own font asset, for example <code>Bitter-Regular_Font</code> and <code>Bitter-Bold_Font</code>, then reimport.</td>
+                        </tr>
+                        <tr>
+                            <td>ETB_ / ETM_ input text uses wrong font</td>
+                            <td>The input group has no child <code>TXT_</code> placeholder/text layer, or that placeholder uses a missing font.</td>
+                            <td>Add a child <code>TXT_</code> text layer inside the input group and make sure its font exists or is mapped in Unreal.</td>
+                        </tr>
+                        <tr>
+                            <td>Text wraps too narrow or too many lines</td>
+                            <td>Photoshop text bounds and Unreal text measurement differ, or the layer exported as point text instead of area text.</td>
+                            <td>Use exported width/line-height wrap data. The importer can infer multiline text and applies an explicit Wrap Text At value with a width allowance.</td>
+                        </tr>
+                        <tr>
+                            <td>All checkboxes in a CHKG_ group start unchecked</td>
+                            <td>Group default selection was not initialized.</td>
+                            <td>The current importer checks the first checkbox/toggle child and initializes LastCheckBoxCheck before running the mutual-exclusion loop.</td>
+                        </tr>
+                        <tr>
+                            <td>Checkbox label blocks clicking</td>
+                            <td>A TextBlock inside the checkbox group is receiving mouse hit tests.</td>
+                            <td>Text under CHKG_ is set to HitTestInvisible / remove hit test by the importer.</td>
+                        </tr>
+                        <tr>
+                            <td>Rounded panel becomes square/64×64</td>
+                            <td>Solid-color optimization was applied to art that has rounded or transparent corners.</td>
+                            <td>Use the current JSX exporter. Rounded corners, masks, transparent edges, and layer effects are excluded from 64×64 optimization.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="section-label">Debug checklist</div>
+                    <h2>Before reporting a bug</h2>
+                    <ol class="checklist">
+                        <li>
+                            <span class="num">1</span>
+                            <div>Attach the exported <code>layout.json</code>.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <div>Include a screenshot of the Photoshop layer tree around the broken widget.</div>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <div>Include a screenshot of the Unreal importer settings for the root screen.</div>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <div>Copy the first compile/runtime error from the Output Log.</div>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <div>State the Unreal Engine version, for example 5.6, 5.7, or 5.8.</div>
+                        </li>
+                    </ol>
+                </section>
+                <section>
+                    <div class="section-label">Output Log</div>
+                    <h2>Messages to search for</h2>
+                    <p class="section-intro">Search the Unreal Output Log for these strings when diagnosing importer behavior.</p>
+                    <pre><code>UIWidgetBuilder
+UIWB
+CreateWidget
+AddToViewport
+DeleteExistingGeneratedItems
+CloseOnKey
+ShowAfterClose
+PlayMusicAfterAddToViewport</code></pre>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="generated-blueprints.html"><span>Previous</span><b>Generated Blueprints</b></a>
+                        <a href="faq.html" style="text-align:right"><span>Next</span><b>FAQ</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </body>
+</html>

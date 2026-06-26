@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UI Widget Builder Help — Quick Start</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="toc">
+                <div class="brand">UI Widget Builder</div>
+                <div class="brand-sub">Complete Help Site</div>
+                <div class="group-title">Documentation</div><a href="index.html">Overview</a><a class="active" href="quick-start.html">Quick Start</a><a href="installation.html">Installation</a><a href="psd-exporter.html">PSD Exporter</a><a href="layer-naming.html">Layer Naming</a><a href="unreal-importer.html">Unreal Importer</a><a href="font-mapping.html">Font Mapping</a><a href="resolution-orientation.html">Resolution & Orientation</a><a href="auto-generated-logic.html">Auto-Generated Logic</a><a href="features-restrictions.html">Features & Restrictions</a><a href="presets-and-logic.html">Presets & Logic</a><a href="generated-blueprints.html">Generated Blueprints</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ / Release Notes</a>
+                <div class="group-title">External</div><a href="external/psd-samples.html">PSD Sample Files</a><a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">
+                        <span class="dot"></span>First import
+                    </div>
+                    <h1>Quick Start<br><span class="accent">PSD to UMG</span></h1>
+                    <p class="lead">The fastest path from a structured PSD to a working generated Widget Blueprint.</p>
+                    <div class="meta-row">
+                        <span><b>Plugin:</b> UI Widget Builder</span>
+                        <span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span>
+                        <span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span>
+                        <span><b>Author:</b> Ali Shantia</span>
+                    </div>
+                </header>
+                <section>
+                    <div class="section-label">Installation check</div>
+                    <h2>Before importing in Unreal</h2>
+                    <table class="ref">
+                        <tr>
+                            <th>Setup item</th>
+                            <th>What users need to know</th>
+                        </tr>
+                        <tr>
+                            <td>Supported Unreal versions</td>
+                            <td>UI Widget Builder supports UE <b>5.6</b>, <b>5.7</b>, and <b>5.8</b>.</td>
+                        </tr>
+                        <tr>
+                            <td>Animated Widget Switcher</td>
+                            <td>To use <b>Change to Common Animated Switcher</b>, enable the Unreal <b>CommonUI</b> plugin first. Normal WidgetSwitcher import does not require CommonUI.</td>
+                        </tr>
+                        <tr>
+                            <td>Preset path</td>
+                            <td>The importer can save the preset path, so repeated imports can reuse the same preset location faster.</td>
+                        </tr>
+                    </table>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body">
+                            <b class="label">Install details</b>
+                            <p>For full setup steps, see the <a href="installation.html">Installation</a> page.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">First import</div>
+                    <h2>Quick start checklist</h2>
+                    <p class="section-intro">Use this flow when testing the plugin for the first time or when making a tutorial video.</p>
+                    <ol class="checklist">
+                        <li>
+                            <span class="num">1</span>
+                            <div>
+                                <b>Prepare Photoshop.</b> Put each screen inside a root group. The <span class="pfx">CAN_</span> prefix is optional: <span class="pfx">CAN_MainMenu</span> and plain names like <span class="pfx">MainMenu</span>, <span class="pfx">Settings</span>, or <span class="pfx">Loading</span> are all valid.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <div>
+                                <b>Name controls.</b> Use prefixes like <span class="pfx">BTN_Play</span>, <span class="pfx">TXT_Title</span>, <span class="pfx">IMG_Background</span>, and <span class="pfx">SLD_Volume</span>.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <div>
+                                <b>Run Prep Layers.</b> It finds visible text/image layers with missing prefixes and lets you rename them quickly.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <div>
+                                <b>Run Fill States.</b> For each <span class="pfx">BTN_</span> group, create missing <code>IMG_Normal</code>, <code>IMG_Hover</code>, and <code>IMG_Pressed</code> layers.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <div>
+                                <b>Export PSD.</b> Choose an output folder. The exporter writes <code>layout.json</code> and <code>Textures/</code>.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <div>
+                                <b>Import in Unreal.</b> Open UI Widget Builder, choose the exported folder, review Step 2/Step 3 settings, then import.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <div>
+                                <b>Test in PIE.</b> If Add To Level is enabled, the plugin can generate level Blueprint logic to create the selected widget on BeginPlay.
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="shot">
+                        <img src="external/samples/Exporter/test%20import.webp" width="842">
+                        <div class="shot-sub">left Photoshop layer tree, center export folder, right Unreal UMG preview.</div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Recommended first PSD</div>
+                    <h2>Small example structure</h2>
+                    <pre><code>MainMenu  <!-- CAN_MainMenu is also valid -->
+  IMG_Background
+  TXT_Title
+  BTN_Play
+    IMG_Normal
+    IMG_Hover
+    IMG_Pressed
+    TXT_Label
+  BTN_Settings
+    IMG_Normal
+    IMG_Hover
+    IMG_Pressed
+  Settings  <!-- CAN_Settings is also valid -->
+    IMG_Panel
+    TXT_SettingsTitle
+    SLD_MasterVolume
+      BAR_Track
+      THM_Handle
+    BTN_Close
+      IMG_Normal
+      IMG_Hover
+      IMG_Pressed</code></pre>
+                    <div class="callout tip">
+                        <div class="icon">✓</div>
+                        <div class="body"><b class="label">Tip</b>
+                            <p>For a clean first test, keep the PSD small. Verify text, buttons, one image, one slider, and one close button before testing advanced screens.</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="section-label">Clean re-import</div>
+                    <h2>When to enable delete-before-import</h2>
+                    <p class="section-intro">
+    During iteration, generated assets may already exist in the Unreal Content path. Use <b>Delete existing generated items before import</b> when you want a fully clean import. </p>
+                    <table class="ref">
+                        <tr>
+                            <th>Situation</th>
+                            <th>Recommended action</th>
+                        </tr>
+                        <tr>
+                            <td>First import</td>
+                            <td>Leave it off. There is nothing to delete.</td>
+                        </tr>
+                        <tr>
+                            <td>Re-import after changing PSD structure</td>
+                            <td>Enable it to remove old generated widgets and the generated <code>Textures</code> folder first.</td>
+                        </tr>
+                        <tr>
+                            <td>Existing assets found and option is off</td>
+                            <td>The importer asks whether to delete first and continue, or cancel.</td>
+                        </tr>
+                        <tr>
+                            <td>Widget Blueprint is open in editor</td>
+                            <td>Close the open Widget Blueprint tab before deleting generated items.</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <div class="nextprev">
+                        <a href="index.html"><span>Previous</span><b>Overview</b></a>
+                        <a href="installation.html" style="text-align:right"><span>Next</span><b>Installation</b></a>
+                    </div>
+                </section>
+                <footer class="footer">
+                    UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+                    <div class="footer-links"><a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a><a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a><a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- UIWB image lightbox: click any help screenshot to enlarge. -->
+        <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+            <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+            <img src="" alt="">
+        </div>
+        <script>
+(function () {
+    var lightbox = document.getElementById('imageLightbox');
+    if (!lightbox) return;
+
+    var lightboxImage = lightbox.querySelector('img');
+    var closeButton = lightbox.querySelector('.lightbox-close');
+
+    function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+        lightboxImage.alt = sourceImage.alt || sourceImage.getAttribute('data-title') || 'Enlarged image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.shot img:not(.no-enlarge), .sample-thumb:not(.no-enlarge), img.zoomable-image').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLightbox(img);
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox || event.target === lightboxImage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+}());
+        </script>
+
+    </body>
+</html>

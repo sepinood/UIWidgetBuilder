@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Widget Builder Help — Layer Naming</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><div class="brand">UI Widget Builder</div><div class="brand-sub">Complete Help Site</div>
+<div class="group-title">Documentation</div>
+<a href="index.html">Overview</a>
+<a href="quick-start.html">Quick Start</a>
+<a href="installation.html">Installation</a>
+<a href="psd-exporter.html">PSD Exporter</a>
+<a class="active" href="layer-naming.html">Layer Naming</a>
+<a href="unreal-importer.html">Unreal Importer</a>
+<a href="font-mapping.html">Font Mapping</a>
+<a href="resolution-orientation.html">Resolution & Orientation</a>
+<a href="auto-generated-logic.html">Auto-Generated Logic</a>
+<a href="features-restrictions.html">Features & Restrictions</a>
+<a href="presets-and-logic.html">Presets & Logic</a>
+<a href="generated-blueprints.html">Generated Blueprints</a>
+<a href="troubleshooting.html">Troubleshooting</a>
+<a href="faq.html">FAQ / Release Notes</a>
+<div class="group-title">External</div>
+<a href="external/psd-samples.html">PSD Sample Files</a>
+<a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a>
+<a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a>
+<a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a>
+<a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</nav>
+<main>
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span>Naming rules</div>
+  <h1>Layer Naming<br><span class="accent">Prefixes & Syntax</span></h1>
+  <p class="lead">The complete naming reference users need to structure a PSD correctly.</p>
+  <div class="meta-row"><span><b>Plugin:</b> UI Widget Builder</span><span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span><span><b>Workflow:</b> PSD → layout.json + Textures → UMG Widget Blueprint</span><span><b>Author:</b> Ali Shantia</span></div>
+</header>
+
+<section>
+  <div class="section-label">Prefixes</div>
+  <h2>Core widget prefixes</h2>
+  <p class="section-intro">Layer and group names control how the importer creates UMG widgets.</p>
+  <table class="ref">
+    <tr><th>Prefix</th><th>Unreal widget</th><th>Use</th></tr>
+    <tr><td><span class="pfx">CAN_</span></td><td class="widget">CanvasPanel / root screen</td><td>Main screen/page container. Example: <code>CAN_MainMenu</code>.</td></tr>
+    <tr><td><span class="pfx">BTN_</span></td><td class="widget">Button</td><td>Interactive button group with state art.</td></tr>
+    <tr><td><span class="pfx">TXT_</span> / <span class="pfx">LABEL_</span></td><td class="widget">TextBlock</td><td>Real Photoshop text layer. Exports content, color, alignment, font data, and direction.</td></tr>
+    <tr><td><span class="pfx">IMG_</span> / <span class="pfx">BG_</span> / <span class="pfx">ICO_</span></td><td class="widget">Image</td><td>General visual texture.</td></tr>
+    <tr><td><span class="pfx">PNL_</span></td><td class="widget">Box / panel image</td><td>Panel-style brush, useful for 9-slice backgrounds.</td></tr>
+    <tr><td><span class="pfx">SLD_</span></td><td class="widget">Slider</td><td>Needs track and thumb parts.</td></tr>
+    <tr><td><span class="pfx">RSLD_</span></td><td class="widget">RadialSlider</td><td>Radial slider with radial thumb part.</td></tr>
+    <tr><td><span class="pfx">CHK_</span> / <span class="pfx">TGL_</span></td><td class="widget">CheckBox / ToggleButton</td><td>Optional box, checkmark, and label parts.</td></tr>
+    <tr><td><span class="pfx">CHKG_</span></td><td class="widget">Checkbox group metadata</td><td>Exclusive checkbox group container. Needs at least two <span class="pfx alt">CHK_</span>/<span class="pfx alt">TGL_</span> children. The first child imports checked by default; group text labels are non-hit-testable.</td></tr>
+    <tr><td><span class="pfx">TXI_</span> / <span class="pfx">TXIM_</span></td><td class="widget">EditableText</td><td>Plain editable text input.</td></tr>
+    <tr><td><span class="pfx">ETB_</span> / <span class="pfx">ETBM_</span> / <span class="pfx">ETM_</span></td><td class="widget">EditableTextBox</td><td>Editable text input with box chrome. Add <span class="pfx alt">BG_</span> for the box background and <span class="pfx alt">TXT_</span> for placeholder/font data.</td></tr>
+    <tr><td><span class="pfx">CMB_</span></td><td class="widget">ComboBoxString</td><td>Dropdown string selector.</td></tr>
+    <tr><td><span class="pfx">OPT_</span></td><td class="widget">Combo option</td><td>Option entries inside a combo group.</td></tr>
+    <tr><td><span class="pfx">SPN_</span></td><td class="widget">SpinBox</td><td>Numeric input.</td></tr>
+    <tr><td><span class="pfx">PGB_</span></td><td class="widget">ProgressBar</td><td>Progress background and fill art.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Containers</div>
+  <h2>Layout containers</h2>
+  <table class="ref">
+    <tr><th>Prefix</th><th>Unreal widget</th><th>Use</th></tr>
+    <tr><td><span class="pfx">HBX_</span> / <span class="pfx">VBX_</span></td><td class="widget">HorizontalBox / VerticalBox</td><td>Ordered children in a row or column.</td></tr>
+    <tr><td><span class="pfx">WBX_</span></td><td class="widget">WrapBox</td><td>Children wrap within folder width.</td></tr>
+    <tr><td><span class="pfx">GRD_</span> / <span class="pfx">GDP_</span> / <span class="pfx">GPN_</span></td><td class="widget">GridPanel</td><td>Grid slots computed from child positions.</td></tr>
+    <tr><td><span class="pfx">UGP_</span></td><td class="widget">UniformGridPanel</td><td>Uniform cells based on largest child.</td></tr>
+    <tr><td><span class="pfx">SCB_</span> / <span class="pfx">SCR_</span></td><td class="widget">ScrollBox</td><td>Vertical/horizontal scroll area.</td></tr>
+    <tr><td><span class="pfx">WSW_</span> / <span class="pfx">WIS_</span></td><td class="widget">WidgetSwitcher</td><td>Tabbed or page-switch UI.</td></tr>
+    <tr><td><span class="pfx">OVL_</span></td><td class="widget">Overlay</td><td>Stacked children.</td></tr>
+    <tr><td><span class="pfx">SFZ_</span> / <span class="pfx">SAFE_</span></td><td class="widget">SafeZone</td><td>Safe area wrapper.</td></tr>
+    <tr><td><span class="pfx">SCX_</span> / <span class="pfx">SCL_</span> / <span class="pfx">SBX_</span></td><td class="widget">ScaleBox</td><td>Scale wrapper.</td></tr>
+    <tr><td><span class="pfx">SZB_</span> / <span class="pfx">SIZE_</span></td><td class="widget">SizeBox</td><td>Fixed size wrapper.</td></tr>
+    <tr><td><span class="pfx">BDR_</span></td><td class="widget">Border</td><td>Single-child border wrapper.</td></tr>
+    <tr><td><span class="pfx">SPS_</span></td><td class="widget">Spacer</td><td>Fixed empty space.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Compound parts</div>
+  <h2>Parts used inside widget groups</h2>
+  <table class="ref">
+    <tr><th>Part prefix</th><th>Typical parent</th><th>Role</th></tr>
+    <tr><td><span class="pfx">IMG_Normal</span></td><td><span class="pfx alt">BTN_</span></td><td>Button normal state.</td></tr>
+    <tr><td><span class="pfx">IMG_Hover</span></td><td><span class="pfx alt">BTN_</span></td><td>Button hover state.</td></tr>
+    <tr><td><span class="pfx">IMG_Pressed</span></td><td><span class="pfx alt">BTN_</span></td><td>Button pressed state.</td></tr>
+    <tr><td><span class="pfx">BAR_</span></td><td><span class="pfx alt">SLD_</span>, <span class="pfx alt">RSLD_</span>, <span class="pfx alt">SCB_</span></td><td>Track or size reference.</td></tr>
+    <tr><td><span class="pfx">THM_</span></td><td><span class="pfx alt">SLD_</span></td><td>Slider thumb.</td></tr>
+    <tr><td><span class="pfx">RTHM_</span></td><td><span class="pfx alt">RSLD_</span></td><td>Radial slider thumb.</td></tr>
+    <tr><td><span class="pfx">BOX_</span></td><td><span class="pfx alt">CHK_</span></td><td>Unchecked checkbox art.</td></tr>
+    <tr><td><span class="pfx">CHKMARK_</span></td><td><span class="pfx alt">CHK_</span></td><td>Checked checkbox art.</td></tr>
+    <tr><td><span class="pfx">FILL_</span></td><td><span class="pfx alt">PGB_</span></td><td>Progress fill art.</td></tr>
+    <tr><td><span class="pfx">ARW_</span></td><td><span class="pfx alt">CMB_</span></td><td>Dropdown arrow art.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Special syntax</div>
+  <h2>Numbers and modifiers in names</h2>
+  <table class="ref">
+    <tr><th>Syntax</th><th>Example</th><th>Meaning</th></tr>
+    <tr><td>Spacer size</td><td><code>SPS_60,20</code></td><td>Spacer 60 wide, 20 high.</td></tr>
+    <tr><td>Grid size</td><td><code>GRD_3x2</code></td><td>3 columns, 2 rows.</td></tr>
+    <tr><td>Scroll orientation</td><td><code>SCB_H_Items</code></td><td>Horizontal ScrollBox.</td></tr>
+    <tr><td>Fixed scroll viewport</td><td><code>SCB_S_Items</code></td><td>Use folder bounds as visible viewport.</td></tr>
+    <tr><td>Button rotation</td><td><code>BTN_Play ROT_-12</code></td><td>Applies rotation to the button widget.</td></tr>
+    <tr><td>Shared texture</td><td><code>IMG_Icon_IDN_A</code></td><td>Reuses texture key A.</td></tr>
+  </table>
+</section>
+
+<section><div class="nextprev"><a href="psd-exporter.html"><span>Previous</span><b>PSD Exporter</b></a><a href="unreal-importer.html" style="text-align:right"><span>Next</span><b>Unreal Importer</b></a></div></section>
+<footer class="footer">
+  UI Widget Builder Help · Companion documentation for the Photoshop exporter and Unreal importer · © 2026 Ali Shantia
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">▶ YouTube tutorials</a>
+    <a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">◆ Fab marketplace</a>
+    <a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+  </div>
+</footer>
+</main>
+</div>
+</body>
+</html>

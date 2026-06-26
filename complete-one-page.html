@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Widget Builder — Complete Help</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><div class="brand">UI Widget Builder</div><div class="brand-sub">Complete Help Site</div>
+<div class="group-title">Documentation</div>
+<a href="index.html">Overview</a>
+<a href="quick-start.html">Quick Start</a>
+<a href="installation.html">Installation</a>
+<a href="psd-exporter.html">PSD Exporter</a>
+<a href="layer-naming.html">Layer Naming</a>
+<a href="unreal-importer.html">Unreal Importer</a>
+<a href="font-mapping.html">Font Mapping</a>
+<a href="resolution-orientation.html">Resolution & Orientation</a>
+<a href="auto-generated-logic.html">Auto-Generated Logic</a>
+<a href="features-restrictions.html">Features & Restrictions</a>
+<a href="presets-and-logic.html">Presets & Logic</a>
+<a href="generated-blueprints.html">Generated Blueprints</a>
+<a href="troubleshooting.html">Troubleshooting</a>
+<a href="faq.html">FAQ / Release Notes</a>
+<div class="group-title">External</div>
+<a href="external/psd-samples.html">PSD Sample Files</a>
+<a href="jsx-exporter-help.html" target="_blank" rel="noopener noreferrer">PSD Exporter JSX Help</a><a href="downloads/UI_Widget_Builder__PhotoshopExporter.jsx" download="UI_Widget_Builder__PhotoshopExporter.jsx">Download JSX Exporter</a>
+<a href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer">YouTube Tutorials</a>
+<a href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer">Fab Marketplace</a>
+<a href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</nav>
+<main>
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span>Complete one-page help</div>
+  <h1>UI Widget Builder<br><span class="accent">Complete Help</span></h1>
+  <p class="lead">Single-page version of the complete documentation site. Use this if you want one long HTML file.</p>
+  <div class="meta-row"><span><b>Plugin:</b> UI Widget Builder</span><span><b>Target:</b> UE 5.6 / 5.7 / 5.8</span><span><b>Author:</b> Ali Shantia</span></div>
+</header>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>What this plugin does</h2>
+  <p class="section-intro">
+    UI Widget Builder is an Unreal Engine editor tool that converts a structured Photoshop UI design into real UMG Widget Blueprints.
+    The normal pipeline is: design in PSD, export <code>layout.json</code> and <code>Textures/</code> with the JSX exporter, then import the JSON inside Unreal.
+  </p>
+  <div class="callout notice">
+    <div class="icon">!</div>
+    <div class="body"><b class="label">Engine support</b><p>UI Widget Builder supports Unreal Engine <b>5.6</b>, <b>5.7</b>, and <b>5.8</b>. The animated switcher option requires the Unreal <b>CommonUI</b> plugin and is intended for UE 5.7 / UE 5.8; UE 5.6 uses normal WidgetSwitcher behavior.</p></div>
+  </div>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Diagram placeholder — PSD layer tree → layout.json + Textures/ → Unreal Widget Blueprint</div>
+    <div class="shot-sub">Suggested image: 3-step horizontal workflow with Photoshop, JSON preview, and UMG Designer screenshot.</div>
+  </div>
+  <div class="grid three">
+    <a class="card" href="quick-start.html"><h3>1. Quick Start</h3><p>Minimum steps to export and import your first screen.</p><div class="mini">PSD → Export PSD → Import JSON</div></a>
+    <a class="card" href="installation.html"><h3>2. Installation</h3><p>Supported Unreal versions, plugin setup, CommonUI requirement, and saved preset path setup.</p><div class="mini">UE 5.6 · UE 5.7 · UE 5.8</div></a>
+    <a class="card" href="layer-naming.html"><h3>3. Naming Rules</h3><p>Prefixes for buttons, text, images, containers, sliders, checkboxes, and special parts.</p><div class="mini">BTN_ TXT_ IMG_ CAN_ SCB_</div></a>
+    <a class="card" href="unreal-importer.html"><h3>4. Unreal Importer</h3><p>How to use the wizard, output path, generated assets, presets, and delete-before-import.</p><div class="mini">Step 1 → Step 2 → Step 3</div></a>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Mental model</div>
+  <h2>The important idea</h2>
+  <p class="section-intro">
+    The plugin does not guess your UI. It reads your layer names. A good PSD naming convention produces clean widgets, clean hierarchy, and usable generated Blueprint logic.
+  </p>
+  <table class="ref">
+    <tr><th>Photoshop concept</th><th>Exported JSON</th><th>Unreal result</th></tr>
+    <tr><td>Group named <span class="pfx">CAN_MainMenu</span></td><td>Root screen group</td><td>CanvasPanel / screen root, optionally wrapped by SafeZone, ScaleBox, SizeBox</td></tr>
+    <tr><td>Group named <span class="pfx">BTN_Play</span></td><td>Button object with state textures</td><td>UButton with Normal / Hover / Pressed / Disabled brushes</td></tr>
+    <tr><td>Text layer named <span class="pfx">TXT_Title</span></td><td>Text object with font, color, alignment</td><td>UTextBlock</td></tr>
+    <tr><td>Layer named <span class="pfx">IMG_Background</span></td><td>Texture entry</td><td>UImage with imported texture</td></tr>
+    <tr><td>Output folder</td><td><code>layout.json</code> + <code>Textures/</code></td><td>Widget Blueprint assets in the selected Content path</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">What the help covers</div>
+  <h2>Documentation map</h2>
+  <div class="grid two">
+    <div class="card"><h3>Designer workflow</h3><p>How to prepare Photoshop layers, use prefix names, export textures, and avoid common naming mistakes.</p></div>
+    <div class="card"><h3>Unreal workflow</h3><p>How to import JSON, choose generated Widget Blueprint names, detach root widgets, add widgets to level, and generate Blueprint logic.</p></div>
+    <div class="card"><h3>Advanced features</h3><p>Presets, screen usage settings, Close on Key, Show After Close, play music, pause game, child UI logic, sliders, save text, click and hover SFX.</p></div>
+    <div class="card"><h3>Maintenance</h3><p>Delete existing generated items, clean re-imports, troubleshooting, known limitations, and publish-readiness notes for UE 5.6–5.8.</p></div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Installation check</div>
+  <h2>Before importing in Unreal</h2>
+  <table class="ref">
+    <tr><th>Setup item</th><th>What users need to know</th></tr>
+    <tr><td>Supported Unreal versions</td><td>UI Widget Builder supports UE <b>5.6</b>, <b>5.7</b>, and <b>5.8</b>.</td></tr>
+    <tr><td>Animated Widget Switcher</td><td>To use <b>Change to Common Animated Switcher</b>, enable the Unreal <b>CommonUI</b> plugin first. Normal WidgetSwitcher import does not require CommonUI.</td></tr>
+    <tr><td>Preset path</td><td>The importer can save the preset path, so repeated imports can reuse the same preset location faster.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">First import</div>
+  <h2>Quick start checklist</h2>
+  <p class="section-intro">Use this flow when testing the plugin for the first time or when making a tutorial video.</p>
+  <ol class="checklist">
+    <li><span class="num">1</span><div><b>Prepare Photoshop.</b> Put each screen inside a root group. The <span class="pfx">CAN_</span> prefix is optional: <span class="pfx">CAN_MainMenu</span> and plain names like <span class="pfx">MainMenu</span>, <span class="pfx">Settings</span>, or <span class="pfx">Loading</span> are all valid.</div></li>
+    <li><span class="num">2</span><div><b>Name controls.</b> Use prefixes like <span class="pfx">BTN_Play</span>, <span class="pfx">TXT_Title</span>, <span class="pfx">IMG_Background</span>, and <span class="pfx">SLD_Volume</span>.</div></li>
+    <li><span class="num">3</span><div><b>Run Prep Layers.</b> It finds visible text/image layers with missing prefixes and lets you rename them quickly.</div></li>
+    <li><span class="num">4</span><div><b>Run Fill States.</b> For each <span class="pfx">BTN_</span> group, create missing <code>IMG_Normal</code>, <code>IMG_Hover</code>, and <code>IMG_Pressed</code> layers.</div></li>
+    <li><span class="num">5</span><div><b>Export PSD.</b> Choose an output folder. The exporter writes <code>layout.json</code> and <code>Textures/</code>.</div></li>
+    <li><span class="num">6</span><div><b>Import in Unreal.</b> Open UI Widget Builder, choose the exported folder, review Step 2/Step 3 settings, then import.</div></li>
+    <li><span class="num">7</span><div><b>Test in PIE.</b> If Add To Level is enabled, the plugin can generate level Blueprint logic to create the selected widget on BeginPlay.</div></li>
+  </ol>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Screenshot placeholder — one complete test import</div>
+    <div class="shot-sub">Suggested image: left Photoshop layer tree, center export folder, right Unreal UMG preview.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Recommended first PSD</div>
+  <h2>Small example structure</h2>
+  <pre><code>MainMenu  <!-- CAN_MainMenu is also valid -->
+  IMG_Background
+  TXT_Title
+  BTN_Play
+    IMG_Normal
+    IMG_Hover
+    IMG_Pressed
+    TXT_Label
+  BTN_Settings
+    IMG_Normal
+    IMG_Hover
+    IMG_Pressed
+  Settings  <!-- CAN_Settings is also valid -->
+    IMG_Panel
+    TXT_SettingsTitle
+    SLD_MasterVolume
+      BAR_Track
+      THM_Handle
+    BTN_Close
+      IMG_Normal
+      IMG_Hover
+      IMG_Pressed</code></pre>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body">
+      <b class="label">Tip</b>
+      <p>For a clean first test, keep the PSD small. Verify text, buttons, one image, one slider, and one close button before testing advanced screens.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Clean re-import</div>
+  <h2>When to enable delete-before-import</h2>
+  <p class="section-intro">
+    During iteration, generated assets may already exist in the Unreal Content path. Use <b>Delete existing generated items before import</b> when you want a fully clean import.
+  </p>
+  <table class="ref">
+    <tr><th>Situation</th><th>Recommended action</th></tr>
+    <tr><td>First import</td><td>Leave it off. There is nothing to delete.</td></tr>
+    <tr><td>Re-import after changing PSD structure</td><td>Enable it to remove old generated widgets and the generated <code>Textures</code> folder first.</td></tr>
+    <tr><td>Existing assets found and option is off</td><td>The importer asks whether to delete first and continue, or cancel.</td></tr>
+    <tr><td>Widget Blueprint is open in editor</td><td>Close the open Widget Blueprint tab before deleting generated items.</td></tr>
+  </table>
+</section>
+
+
+<section>
+  <div class="section-label">Photoshop exporter</div>
+  <h2>What the JSX exporter writes</h2>
+  <p class="section-intro">
+    The Photoshop exporter scans the visible layer tree, exports texture PNGs, and writes a single JSON file that describes widgets, layout, styling, text data, and interaction metadata.
+  </p>
+  <table class="ref">
+    <tr><th>Output</th><th>Description</th></tr>
+    <tr><td><code>layout.json</code></td><td>Main file read by the Unreal importer. Contains document size, root groups, widget layers, text data, slots, styles, actions, and warnings.</td></tr>
+    <tr><td><code>Textures/</code></td><td>PNG files used by Image, Button state brushes, Slider parts, CheckBox parts, panels, backgrounds, and icons.</td></tr>
+    <tr><td>Warnings</td><td>Skipped layers, unsupported structures, empty bounds, missing state art, and other issues are written into the JSON warnings array and shown after export.</td></tr>
+  </table>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Screenshot placeholder — PSD Exporter dialog</div>
+    <div class="shot-sub">Suggested image: export path, remember checkbox, export options, Prep Layers, Fill States, Export PSD.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Exporter tools</div>
+  <h2>Toolbar utilities</h2>
+  <div class="grid three">
+    <div class="card"><h3>Prep Layers</h3><p>Finds visible text/image layers without recognized prefixes and lets users apply suggested names.</p><div class="mini">Best before export</div></div>
+    <div class="card"><h3>Fill States</h3><p>Scans <span class="pfx">BTN_</span> groups and duplicates existing state art to create missing Normal, Hover, and Pressed layers.</p><div class="mini">Creates Photoshop layers</div></div>
+    <div class="card"><h3>Export PSD</h3><p>Writes the final <code>layout.json</code> and <code>Textures/</code>. A progress window can cancel after the current texture operation.</p><div class="mini">Creates output files</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Export options</div>
+  <h2>Exporter option reference</h2>
+  <table class="ref">
+    <tr><th>Option</th><th>Effect</th></tr>
+    <tr><td>Skip invisible layers</td><td>Hidden layers and groups are excluded. Use visibility to keep work-in-progress layers out of the export.</td></tr>
+    <tr><td>Skip textures that already exist</td><td>Speeds layout iteration by not re-rendering already exported PNGs. Use carefully when art changes.</td></tr>
+    <tr><td>Delete existing Textures folder and layout.json</td><td>Clean Photoshop-side export. Deletes old exported files before writing new ones.</td></tr>
+    <tr><td>Show warning summary</td><td>Shows warning count and first warning after export; full warnings remain in JSON.</td></tr>
+    <tr><td>Reveal output folder</td><td>Opens the folder after export completes.</td></tr>
+    <tr><td>Optimize solid-color layers</td><td>Exports safe flat single-color art as 64×64 stretched textures to reduce file size. Rounded-corner art, vector/user masks, transparent edges, and layer effects stay full-size.</td></tr>
+    <tr><td>Auto-fill missing button states</td><td>Reuses available button-state texture data in JSON when Normal/Hover/Pressed is missing.</td></tr>
+  </table>
+  <div class="callout caution">
+    <div class="icon">!</div>
+    <div class="body"><b class="label">Destructive option</b><p>Deleting the existing <code>Textures</code> folder and <code>layout.json</code> cannot be undone from the exporter. Use it only when you want a clean export.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Texture naming</div>
+  <h2>Shared textures and ID markers</h2>
+  <p class="section-intro">
+    Some repeated art can be shared intentionally. This reduces duplicated PNGs, but incorrect sharing names can make unrelated UI parts reuse the wrong texture.
+  </p>
+  <table class="ref">
+    <tr><th>Pattern</th><th>Meaning</th></tr>
+    <tr><td><code>IMG_Icon_IDN_A</code></td><td>Explicit shared texture key <code>A</code>.</td></tr>
+    <tr><td><code>IMG_Hover_A</code></td><td>Button-state suffix sharing.</td></tr>
+    <tr><td><code>BG_Window_B</code></td><td>One-letter generic sharing key for supported image-part prefixes.</td></tr>
+  </table>
+  <div class="callout caution">
+    <div class="icon">!</div>
+    <div class="body"><b class="label">Important</b><p>Shared texture keys are global for the export. Do not reuse the same key for unrelated art.</p></div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Prefixes</div>
+  <h2>Core widget prefixes</h2>
+  <p class="section-intro">Layer and group names control how the importer creates UMG widgets.</p>
+  <table class="ref">
+    <tr><th>Prefix</th><th>Unreal widget</th><th>Use</th></tr>
+    <tr><td><span class="pfx">CAN_</span></td><td class="widget">CanvasPanel / root screen</td><td>Main screen/page container. Example: <code>CAN_MainMenu</code>.</td></tr>
+    <tr><td><span class="pfx">BTN_</span></td><td class="widget">Button</td><td>Interactive button group with state art.</td></tr>
+    <tr><td><span class="pfx">TXT_</span> / <span class="pfx">LABEL_</span></td><td class="widget">TextBlock</td><td>Real Photoshop text layer. Exports content, color, alignment, font data, and direction.</td></tr>
+    <tr><td><span class="pfx">IMG_</span> / <span class="pfx">BG_</span> / <span class="pfx">ICO_</span></td><td class="widget">Image</td><td>General visual texture.</td></tr>
+    <tr><td><span class="pfx">PNL_</span></td><td class="widget">Box / panel image</td><td>Panel-style brush, useful for 9-slice backgrounds.</td></tr>
+    <tr><td><span class="pfx">SLD_</span></td><td class="widget">Slider</td><td>Needs track and thumb parts.</td></tr>
+    <tr><td><span class="pfx">RSLD_</span></td><td class="widget">RadialSlider</td><td>Radial slider with radial thumb part.</td></tr>
+    <tr><td><span class="pfx">CHK_</span> / <span class="pfx">TGL_</span></td><td class="widget">CheckBox / ToggleButton</td><td>Optional box, checkmark, and label parts.</td></tr>
+    <tr><td><span class="pfx">CHKG_</span></td><td class="widget">Checkbox group metadata</td><td>Exclusive checkbox group container. The first child imports checked by default; group text labels are non-hit-testable.</td></tr>
+    <tr><td><span class="pfx">TXI_</span> / <span class="pfx">TXIM_</span></td><td class="widget">EditableText</td><td>Plain editable text input.</td></tr>
+    <tr><td><span class="pfx">ETB_</span> / <span class="pfx">ETBM_</span> / <span class="pfx">ETM_</span></td><td class="widget">EditableTextBox</td><td>Editable text input with box chrome. BG_ supplies input background states; TXT_ supplies placeholder/font data.</td></tr>
+    <tr><td><span class="pfx">CMB_</span></td><td class="widget">ComboBoxString</td><td>Dropdown string selector.</td></tr>
+    <tr><td><span class="pfx">OPT_</span></td><td class="widget">Combo option</td><td>Option entries inside a combo group.</td></tr>
+    <tr><td><span class="pfx">SPN_</span></td><td class="widget">SpinBox</td><td>Numeric input.</td></tr>
+    <tr><td><span class="pfx">PGB_</span></td><td class="widget">ProgressBar</td><td>Progress background and fill art.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Containers</div>
+  <h2>Layout containers</h2>
+  <table class="ref">
+    <tr><th>Prefix</th><th>Unreal widget</th><th>Use</th></tr>
+    <tr><td><span class="pfx">HBX_</span> / <span class="pfx">VBX_</span></td><td class="widget">HorizontalBox / VerticalBox</td><td>Ordered children in a row or column.</td></tr>
+    <tr><td><span class="pfx">WBX_</span></td><td class="widget">WrapBox</td><td>Children wrap within folder width.</td></tr>
+    <tr><td><span class="pfx">GRD_</span> / <span class="pfx">GDP_</span> / <span class="pfx">GPN_</span></td><td class="widget">GridPanel</td><td>Grid slots computed from child positions.</td></tr>
+    <tr><td><span class="pfx">UGP_</span></td><td class="widget">UniformGridPanel</td><td>Uniform cells based on largest child.</td></tr>
+    <tr><td><span class="pfx">SCB_</span> / <span class="pfx">SCR_</span></td><td class="widget">ScrollBox</td><td>Vertical/horizontal scroll area.</td></tr>
+    <tr><td><span class="pfx">WSW_</span> / <span class="pfx">WIS_</span></td><td class="widget">WidgetSwitcher</td><td>Tabbed or page-switch UI.</td></tr>
+    <tr><td><span class="pfx">OVL_</span></td><td class="widget">Overlay</td><td>Stacked children.</td></tr>
+    <tr><td><span class="pfx">SFZ_</span> / <span class="pfx">SAFE_</span></td><td class="widget">SafeZone</td><td>Safe area wrapper.</td></tr>
+    <tr><td><span class="pfx">SCX_</span> / <span class="pfx">SCL_</span> / <span class="pfx">SBX_</span></td><td class="widget">ScaleBox</td><td>Scale wrapper.</td></tr>
+    <tr><td><span class="pfx">SZB_</span> / <span class="pfx">SIZE_</span></td><td class="widget">SizeBox</td><td>Fixed size wrapper.</td></tr>
+    <tr><td><span class="pfx">BDR_</span></td><td class="widget">Border</td><td>Single-child border wrapper.</td></tr>
+    <tr><td><span class="pfx">SPS_</span></td><td class="widget">Spacer</td><td>Fixed empty space.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Compound parts</div>
+  <h2>Parts used inside widget groups</h2>
+  <table class="ref">
+    <tr><th>Part prefix</th><th>Typical parent</th><th>Role</th></tr>
+    <tr><td><span class="pfx">IMG_Normal</span></td><td><span class="pfx alt">BTN_</span></td><td>Button normal state.</td></tr>
+    <tr><td><span class="pfx">IMG_Hover</span></td><td><span class="pfx alt">BTN_</span></td><td>Button hover state.</td></tr>
+    <tr><td><span class="pfx">IMG_Pressed</span></td><td><span class="pfx alt">BTN_</span></td><td>Button pressed state.</td></tr>
+    <tr><td><span class="pfx">BAR_</span></td><td><span class="pfx alt">SLD_</span>, <span class="pfx alt">RSLD_</span>, <span class="pfx alt">SCB_</span></td><td>Track or size reference.</td></tr>
+    <tr><td><span class="pfx">THM_</span></td><td><span class="pfx alt">SLD_</span></td><td>Slider thumb.</td></tr>
+    <tr><td><span class="pfx">RTHM_</span></td><td><span class="pfx alt">RSLD_</span></td><td>Radial slider thumb.</td></tr>
+    <tr><td><span class="pfx">BOX_</span></td><td><span class="pfx alt">CHK_</span></td><td>Unchecked checkbox art.</td></tr>
+    <tr><td><span class="pfx">CHKMARK_</span></td><td><span class="pfx alt">CHK_</span></td><td>Checked checkbox art.</td></tr>
+    <tr><td><span class="pfx">FILL_</span></td><td><span class="pfx alt">PGB_</span></td><td>Progress fill art.</td></tr>
+    <tr><td><span class="pfx">ARW_</span></td><td><span class="pfx alt">CMB_</span></td><td>Dropdown arrow art.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Special syntax</div>
+  <h2>Numbers and modifiers in names</h2>
+  <table class="ref">
+    <tr><th>Syntax</th><th>Example</th><th>Meaning</th></tr>
+    <tr><td>Spacer size</td><td><code>SPS_60,20</code></td><td>Spacer 60 wide, 20 high.</td></tr>
+    <tr><td>Grid size</td><td><code>GRD_3x2</code></td><td>3 columns, 2 rows.</td></tr>
+    <tr><td>Scroll orientation</td><td><code>SCB_H_Items</code></td><td>Horizontal ScrollBox.</td></tr>
+    <tr><td>Fixed scroll viewport</td><td><code>SCB_S_Items</code></td><td>Use folder bounds as visible viewport.</td></tr>
+    <tr><td>Button rotation</td><td><code>BTN_Play ROT_-12</code></td><td>Applies rotation to the button widget.</td></tr>
+    <tr><td>Shared texture</td><td><code>IMG_Icon_IDN_A</code></td><td>Reuses texture key A.</td></tr>
+  </table>
+</section>
+
+
+<section>
+  <div class="section-label">Unreal importer</div>
+  <h2>Importer wizard overview</h2>
+  <p class="section-intro">
+    The Unreal importer is the editor-side half of the plugin. It reads <code>layout.json</code>, imports textures, creates Widget Blueprints, and optionally generates Blueprint graph logic.
+  </p>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Screenshot placeholder — UI Widget Builder wizard Step 1, Step 2, Step 3</div>
+    <div class="shot-sub">Suggested image: three wizard panels side-by-side.</div>
+  </div>
+  <table class="ref">
+    <tr><th>Step</th><th>Purpose</th></tr>
+    <tr><td>Step 1 — Source</td><td>Select the exported folder containing <code>layout.json</code> and <code>Textures/</code>. Choose resolution and source settings.</td></tr>
+    <tr><td>Step 2 — Widget roots</td><td>Choose which root screens to import, which to detach into their own Widget Blueprints, and root-level behavior options.</td></tr>
+    <tr><td>Step 3 — Output</td><td>Set package names, export path, wrappers, input mode, Add To Level, delete existing generated items, and advanced generation options.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Output path</div>
+  <h2>Generated assets and clean import</h2>
+  <p class="section-intro">
+    The Content path controls where generated Widget Blueprints and textures are created. For clean iteration, the importer can delete generated items before importing.
+  </p>
+  <table class="ref">
+    <tr><th>Control</th><th>Meaning</th></tr>
+    <tr><td>Widget Package Name</td><td>Main/host Widget Blueprint name, such as <code>WBP_MainMenu</code>, <code>WBP_Loading</code>, or <code>WBP_UIHost</code>.</td></tr>
+    <tr><td>Export Path</td><td>Unreal Content path where generated assets are created, such as <code>/Game/UI/MainMenu</code>.</td></tr>
+    <tr><td>Detached package names</td><td>Separate WBP names for roots marked as detached, for example <code>WBP_Settings</code>.</td></tr>
+    <tr><td>Delete existing generated items before import</td><td>Force-deletes previously generated Widget Blueprints in the export path and the generated <code>Textures</code> folder before creating fresh assets.</td></tr>
+  </table>
+  <div class="callout caution">
+    <div class="icon">!</div>
+    <div class="body">
+      <b class="label">Important</b>
+      <p>This is a delete-before-import system, not an overwrite system. It removes old generated assets first, then imports fresh assets.</p>
+      <p>Close any open Widget Blueprint tabs for generated assets before using this option.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Font Mapping & Font Support</div>
+  <h2>How Photoshop fonts resolve in Unreal</h2>
+  <p class="section-intro">The exporter records Photoshop font family, style, weight, italic/faux italic, font size, line height, tracking, alignment, and direction in <code>layout.json</code>. The importer then tries to resolve that data to an Unreal font asset.</p>
+  <table class="ref">
+    <tr><th>Resolve step</th><th>Behavior</th></tr>
+    <tr><td>1. Photoshop text data</td><td>Reads font family, style, weight, PostScript name, Regular/Bold/Italic flags, and text metrics.</td></tr>
+    <tr><td>2. Manual Font Mapping</td><td>If the user mapped the Photoshop font to an Unreal asset, that mapping is used.</td></tr>
+    <tr><td>3. Auto project match</td><td>If there is no manual mapping, the importer tries project font asset candidates based on family and style names, such as <code>Bitter-Regular_Font</code> or <code>Bitter-Bold_Font</code>.</td></tr>
+    <tr><td>4. Style matching</td><td>Regular and Bold are resolved separately so Regular text does not automatically become Bold.</td></tr>
+    <tr><td>5. Fallback</td><td>If no font asset is found, the text widget is still generated and Unreal displays it with its default font.</td></tr>
+  </table>
+  <div class="grid two">
+    <div class="card"><h3>Missing fonts</h3><p>The PSD export does not embed licensed font files. Import the matching TTF/OTF/Font assets into Unreal or use Font Mapping to connect Photoshop names to Unreal assets.</p></div>
+    <div class="card"><h3>ETB_ / ETM_ inputs</h3><p>Editable inputs use their child <span class="pfx alt">TXT_</span> placeholder/text layer for font data. <span class="pfx alt">BG_</span> supplies the input background states.</p></div>
+  </div>
+  <div class="callout tip"><div class="icon">✓</div><div class="body"><b class="label">Recommended workflow</b><p>Import every font style used in Photoshop into Unreal first, name assets clearly, run the importer, then use Font Mapping only for override cases.</p></div></div>
+</section>
+
+<section>
+  <div class="section-label">Root settings</div>
+  <h2>Per-screen root options</h2>
+  <table class="ref">
+    <tr><th>Option</th><th>Effect</th></tr>
+    <tr><td>Import Widget</td><td>Include this root screen in the generated output.</td></tr>
+    <tr><td>Export as separate Widget</td><td>Create this root as its own Widget Blueprint instead of embedding it in the host WBP.</td></tr>
+    <tr><td>Visible at Start</td><td>Whether the root starts visible in its generated widget.</td></tr>
+    <tr><td>Create Modal Background</td><td>Creates a modal background layer for the root.</td></tr>
+    <tr><td>Create Blur Background</td><td>Creates a blur-style background layer.</td></tr>
+    <tr><td>Close on Escape / Back</td><td>Generates input logic to close/hide this root when the key is pressed.</td></tr>
+    <tr><td>Close on Key</td><td>Lets a specific key trigger the close behavior.</td></tr>
+    <tr><td>Show After Current Widget Closed</td><td>Shows another root after this root closes. For detached targets, the importer creates and adds that widget to the viewport.</td></tr>
+    <tr><td>Pause Game When Visible</td><td>Generates pause/unpause behavior when the root appears or closes.</td></tr>
+    <tr><td>Play Music When Visible</td><td>When Add To Level is used, selected music can play in the Level Blueprint after the selected widget is created and added to viewport.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Add To Level</div>
+  <h2>Level Blueprint generation</h2>
+  <p class="section-intro">
+    When enabled, the importer can add a generated node chain to the current Level Blueprint.
+  </p>
+  <pre><code>Event BeginPlay
+  → UIWB_ADD_TO_LEVEL sequence
+  → CreateWidget(selected WBP)
+  → AddToViewport
+  → PlaySound2D(selected music, if enabled)</code></pre>
+  <div class="callout notice">
+    <div class="icon">!</div>
+    <div class="body"><b class="label">Note</b><p>Music is generated in the Level Blueprint after widget creation, not inside the generated widget Construct graph.</p></div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Preset manager</div>
+  <h2>What presets save</h2>
+  <p class="section-intro">Presets allow users to store import behavior for a project or a specific UI style.</p>
+  <table class="ref">
+    <tr><th>Saved area</th><th>Examples</th></tr>
+    <tr><td>Root usage settings</td><td>Import, detach, visibility, modal/blur, close key, show-after-close, pause game, play music, music asset path.</td></tr>
+    <tr><td>Output settings</td><td>Main package name, export path, Add To Level selection, input mode, wrappers, delete-existing-generated-items option, and saved preset path.</td></tr>
+    <tr><td>Child UI logic</td><td>Click SFX, hover SFX, sliders, save text, clear text on focus, toggle behavior, load level buttons.</td></tr>
+    <tr><td>Text/font settings</td><td>Global font scale, text size-to-content, regular/RTL font handling.</td></tr>
+  </table>
+  <div class="callout success">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Current behavior</b><p>Loading a preset performs a silent hard reset first, then applies the preset. This avoids stale dropdown and package-name state from previous presets.</p></div>
+  </div>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Saved preset path</b><p>The preset manager can save the preset path. This helps users keep presets in a shared project folder and reuse the same preset location during future imports.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Child UI logic</div>
+  <h2>Element-level behavior options</h2>
+  <p class="section-intro">Select a child element in the wizard to add optional behavior.</p>
+  <table class="ref">
+    <tr><th>Element type</th><th>Options</th></tr>
+    <tr><td>Buttons</td><td>Add click SFX, add hover SFX, close parent screen, enable/visible another widget, load level on click, toggle SFX, and button-child text hover behavior.</td></tr>
+    <tr><td>Sliders</td><td>Master volume slider, SFX volume slider, music volume slider.</td></tr>
+    <tr><td>Checkbox / toggle</td><td>Save checked state, toggle SFX, checkbox group behavior. CHKG_ groups start with the first item checked and group text labels remove hit test.</td></tr>
+    <tr><td>Editable text</td><td>Save text, clear text on focus.</td></tr>
+    <tr><td>Images</td><td>Fade in / fade out / blinking effect options where supported.</td></tr>
+    <tr><td>Progress bar / ScrollBox</td><td>Progress fill events and auto-scroll events where supported.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Show / hide logic</div>
+  <h2>Root ownership and detached widgets</h2>
+  <p class="section-intro">
+    When a root is detached, the importer routes its related child screens into the detached WBP instead of leaving them inside the host WBP.
+  </p>
+  <pre><code>Loading  → host WBP
+MainMenu → detached WBP_MainMenu
+  CharacterSelect
+  Settings
+  Quit</code></pre>
+  <div class="callout tip">
+    <div class="icon">✓</div>
+    <div class="body"><b class="label">Tip</b><p>Buttons like <code>BTN_Quit</code> can route related roots such as <code>GRP_Quit</code> or <code>CAN_QuitWindow</code> into the detached owner when names are close enough.</p></div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Generated files</div>
+  <h2>What the importer creates</h2>
+  <table class="ref">
+    <tr><th>Asset</th><th>Description</th></tr>
+    <tr><td>Main/host WBP</td><td>The main generated Widget Blueprint. It may contain all imported roots or only the non-detached host screen.</td></tr>
+    <tr><td>Detached WBPs</td><td>Separate Widget Blueprints for root screens marked as detached.</td></tr>
+    <tr><td>Textures folder</td><td>Imported UTexture2D assets used by generated widgets.</td></tr>
+    <tr><td>Level Blueprint nodes</td><td>Optional BeginPlay node chain that creates and displays the selected generated WBP.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Blueprint graph</div>
+  <h2>Generated graph blocks</h2>
+  <p class="section-intro">The importer adds graph sections for interaction features that are enabled in the wizard.</p>
+  <div class="grid two">
+    <div class="card"><h3>Construct logic</h3><p>Input mode, cursor visibility, generated setup functions, root visibility initialization, and checkbox-group first-item initialization.</p></div>
+    <div class="card"><h3>Button events</h3><p>Close, toggle visibility, switch tab, load level, SFX, enable/visible target logic, and child-text hover effects.</p></div>
+    <div class="card"><h3>Input events</h3><p>Close on Escape/Back and close on selected key.</p></div>
+    <div class="card"><h3>Level Blueprint</h3><p>Add To Level, AddToViewport, optional PlaySound2D music call.</p></div>
+  </div>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Screenshot placeholder — generated Blueprint graph comments</div>
+    <div class="shot-sub">Suggested image: graph comment boxes such as UI Widget Builder - Add To Level, Close On Key, Button Events.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Compatibility</div>
+  <h2>UE 5.6 / 5.7 / 5.8 notes</h2>
+  <table class="ref">
+    <tr><th>Area</th><th>Recommended state</th></tr>
+    <tr><td>Deprecated ComboBox foreground access</td><td>Avoid direct <code>ForegroundColor =</code> assignment and avoid non-existent <code>SetForegroundColor()</code> on <code>UComboBoxString</code>.</td></tr>
+    <tr><td>ProgressBar border padding</td><td>Use <code>SetBorderPadding(...)</code>, not direct <code>BorderPadding =</code>.</td></tr>
+    <tr><td>Common Animated Switcher</td><td>Requires the Unreal <b>CommonUI</b> plugin. Supported for UE 5.7 / UE 5.8. UE 5.6 keeps normal <code>WidgetSwitcher</code> behavior.</td></tr>
+    <tr><td>Fab source header</td><td>Allow licensed users to compile and modify source for their projects while forbidding resale, redistribution, and sublicensing as a standalone product.</td></tr>
+  </table>
+</section>
+
+
+<section>
+  <div class="section-label">Troubleshooting</div>
+  <h2>Common problems and fixes</h2>
+  <table class="ref">
+    <tr><th>Problem</th><th>Likely cause</th><th>Fix</th></tr>
+    <tr><td>Widget does not appear</td><td>Root not imported, starts hidden, or Add To Level selected another WBP.</td><td>Check root Import Widget, Visible at Start, and Add To Level selection.</td></tr>
+    <tr><td>Texture missing</td><td>Layer was hidden, unsupported, empty bounds, or texture path mismatch.</td><td>Check exporter warnings and <code>Textures/</code> output.</td></tr>
+    <tr><td>Button does nothing</td><td>Name does not match target root/group, or child logic option was not enabled.</td><td>Use matching names: <code>BTN_Settings</code> targets <code>CAN_Settings</code> / <code>GRP_Settings</code>.</td></tr>
+    <tr><td>Delete generated items fails</td><td>Generated Widget Blueprint is open in editor or referenced by a loaded asset.</td><td>Close open Blueprint editor tabs and try again.</td></tr>
+    <tr><td>Old assets remain after import</td><td>Delete existing generated items was disabled or canceled.</td><td>Enable delete-before-import for clean iteration.</td></tr>
+    <tr><td>Music does not play</td><td>No music asset selected or Add To Level not used.</td><td>Select a sound asset and verify the Level Blueprint node chain is generated.</td></tr>
+    <tr><td>Wrong button state art</td><td>State layer names are not recognized or shared texture key reused accidentally.</td><td>Use <code>IMG_Normal</code>, <code>IMG_Hover</code>, <code>IMG_Pressed</code>; check sharing suffixes.</td></tr>
+    <tr><td>Text direction wrong</td><td>Text layer was not detected as RTL or font asset missing.</td><td>Use a proper RTL font and check text/font settings.</td></tr>
+    <tr><td>All text imports with Unreal default font</td><td>The Photoshop font is not imported in Unreal or the font asset name cannot be auto-matched.</td><td>Import the TTF/OTF/Font asset into the project, or use Font Mapping to manually connect the Photoshop font family to an Unreal font asset.</td></tr>
+    <tr><td>Regular text imports as Bold, or Bold imports as Regular</td><td>Only one style exists in the project, or the font asset names do not separate Regular/Bold clearly.</td><td>Import each style as its own font asset, for example <code>Bitter-Regular_Font</code> and <code>Bitter-Bold_Font</code>, then reimport.</td></tr>
+    <tr><td>ETB_ / ETM_ input text uses wrong font</td><td>The input group has no child <code>TXT_</code> placeholder/text layer, or that placeholder uses a missing font.</td><td>Add a child <code>TXT_</code> text layer inside the input group and make sure its font exists or is mapped in Unreal.</td></tr>
+    <tr><td>Text wraps too narrow or too many lines</td><td>Photoshop text bounds and Unreal text measurement differ, or the layer exported as point text instead of area text.</td><td>Use exported width/line-height wrap data. The importer can infer multiline text and applies an explicit Wrap Text At value with a width allowance.</td></tr>
+    <tr><td>All checkboxes in a CHKG_ group start unchecked</td><td>Group default selection was not initialized.</td><td>The current importer checks the first checkbox/toggle child and initializes LastCheckBoxCheck before running the mutual-exclusion loop.</td></tr>
+    <tr><td>Checkbox label blocks clicking</td><td>A TextBlock inside the checkbox group is receiving mouse hit tests.</td><td>Text under CHKG_ is set to HitTestInvisible / remove hit test by the importer.</td></tr>
+    <tr><td>Rounded panel becomes square/64×64</td><td>Solid-color optimization was applied to art that has rounded or transparent corners.</td><td>Use the current JSX exporter. Rounded corners, masks, transparent edges, and layer effects are excluded from 64×64 optimization.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Debug checklist</div>
+  <h2>Before reporting a bug</h2>
+  <ol class="checklist">
+    <li><span class="num">1</span><div>Attach the exported <code>layout.json</code>.</div></li>
+    <li><span class="num">2</span><div>Include a screenshot of the Photoshop layer tree around the broken widget.</div></li>
+    <li><span class="num">3</span><div>Include a screenshot of the Unreal importer settings for the root screen.</div></li>
+    <li><span class="num">4</span><div>Copy the first compile/runtime error from the Output Log.</div></li>
+    <li><span class="num">5</span><div>State the Unreal Engine version, for example 5.6, 5.7, or 5.8.</div></li>
+  </ol>
+  <div class="shot">
+    <div class="shot-icon">▤</div>
+    <div class="shot-label">Screenshot placeholder — ideal bug report bundle</div>
+    <div class="shot-sub">Suggested image: layout.json, layer tree, importer settings, Output Log.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Output Log</div>
+  <h2>Messages to search for</h2>
+  <p class="section-intro">Search the Unreal Output Log for these strings when diagnosing importer behavior.</p>
+  <pre><code>UIWidgetBuilder
+UIWB
+CreateWidget
+AddToViewport
+DeleteExistingGeneratedItems
+CloseOnKey
+ShowAfterClose
+PlayMusicAfterAddToViewport</code></pre>
+</section>
+
+
+<section>
+  <div class="section-label">FAQ</div>
+  <h2>Frequently asked questions</h2>
+  <table class="ref">
+    <tr><th>Question</th><th>Answer</th></tr>
+    <tr><td>Is delete-existing an overwrite system?</td><td>No. It deletes generated items first, then imports fresh assets.</td></tr>
+    <tr><td>Can a screen be exported as its own Widget Blueprint?</td><td>Yes. Enable Export as separate Widget on that root.</td></tr>
+    <tr><td>Can Add To Level spawn a detached widget?</td><td>Yes. Choose the detached WBP from the Add To Level dropdown.</td></tr>
+    <tr><td>Where should music play?</td><td>Current preferred flow is Level Blueprint after CreateWidget and AddToViewport, not inside the Widget Construct graph.</td></tr>
+    <tr><td>Can the importer preserve manual edits inside generated WBPs?</td><td>No. Treat generated assets as generated output. Keep manual work in separate Blueprints or wrapper widgets.</td></tr>
+    <tr><td>Can I use this for small UI, not just game menus?</td><td>Yes. Any structured PSD UI can be converted if layers follow the naming rules.</td></tr>
+    <tr><td>Does UI Widget Builder include my Photoshop fonts?</td><td>No. The exporter records font names and styles, but users must import the matching font assets into Unreal or use the default-font fallback.</td></tr>
+    <tr><td>What happens if a font is missing?</td><td>The widget is still generated. Text uses Unreal's default font until the correct font asset is imported or mapped.</td></tr>
+    <tr><td>Do I need to open Font Mapping before import?</td><td>No. The current importer can resolve fonts without opening the popup. Use Font Mapping only when you need to override or fix an auto-match.</td></tr>
+    <tr><td>How are ETB_ and ETM_ fonts chosen?</td><td>The importer reads the child TXT_ placeholder/text layer inside the input group and applies that font data to the editable text widget.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Release notes placeholder</div>
+  <h2>Suggested release note sections</h2>
+  <div class="grid two">
+    <div class="card"><h3>Version 1.0</h3><p>Initial Fab release. Include PSD exporter, Unreal importer, prefix-based widgets, presets, generated Blueprint logic, clean re-import, and example project.</p></div>
+    <div class="card"><h3>Compatibility</h3><p>UI Widget Builder supports Unreal Engine 5.6, 5.7, and 5.8. Common Animated Switcher requires CommonUI in UE 5.7 / UE 5.8.</p></div>
+    <div class="card"><h3>Known limitations</h3><p>Generated assets should be regenerated from PSD/JSON. Manual edits inside generated widgets may be lost during clean re-import.</p></div>
+    <div class="card"><h3>Support info</h3><p>Ask users to attach layout.json, screenshots, and Output Log errors when requesting help.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Resources</div>
+  <h2>Links</h2>
+  <div class="grid three">
+    <a class="card" href="https://www.youtube.com/@sepinoodstudio/playlists" target="_blank" rel="noopener noreferrer"><h3>YouTube tutorials</h3><p>Video tutorials and walkthroughs.</p><div class="mini">youtube.com/@sepinoodstudio</div></a>
+    <a class="card" href="https://www.fab.com/sellers/Ali%20Shantia%28Sepinood%29" target="_blank" rel="noopener noreferrer"><h3>Fab marketplace</h3><p>Publisher page for assets and plugins.</p><div class="mini">fab.com/sellers/Ali Shantia(Sepinood)</div></a>
+    <a class="card" href="https://www.linkedin.com/in/ali-shantia/" target="_blank" rel="noopener noreferrer"><h3>LinkedIn</h3><p>Professional profile.</p><div class="mini">linkedin.com/in/ali-shantia</div></a>
+  </div>
+</section>
+
+<footer class="footer">UI Widget Builder Help · © 2026 Ali Shantia</footer>
+</main></div></body></html>
